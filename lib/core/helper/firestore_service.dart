@@ -4,6 +4,11 @@ abstract class RemoteDataService {
   Future<void> addData({
     required String path,
     required Map<String, dynamic> data,
+    String? documentId,
+  });
+  Future<Map<String, dynamic>> getData({
+    required String path,
+    required String uId,
   });
 }
 
@@ -14,7 +19,19 @@ class FirestoreService implements RemoteDataService {
   Future<void> addData({
     required String path,
     required Map<String, dynamic> data,
+    String? documentId,
   }) async {
-    await firestore.collection(path).add(data);
+    documentId != null
+        ? await firestore.collection(path).doc(documentId).set(data)
+        : await firestore.collection(path).add(data);
+  }
+
+  @override
+  Future<Map<String, dynamic>> getData({
+    required String path,
+    required String uId,
+  }) async {
+    DocumentSnapshot data = await firestore.collection(path).doc(uId).get();
+    return data.data() as Map<String, dynamic>;
   }
 }

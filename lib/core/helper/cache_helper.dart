@@ -12,7 +12,7 @@ class CacheHelper {
     return await _prefs.setBool(key, value);
   }
 
-  static Future<bool> setString(String key, String value) async {
+  Future<bool> setString(String key, String value) async {
     return await _prefs.setString(key, value);
   }
 
