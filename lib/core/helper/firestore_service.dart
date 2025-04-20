@@ -10,6 +10,7 @@ abstract class RemoteDataService {
     required String path,
     required String uId,
   });
+  Future<bool> isDataExist({required String path, required String documentId});
 }
 
 class FirestoreService implements RemoteDataService {
@@ -33,5 +34,14 @@ class FirestoreService implements RemoteDataService {
   }) async {
     DocumentSnapshot data = await firestore.collection(path).doc(uId).get();
     return data.data() as Map<String, dynamic>;
+  }
+
+  @override
+  Future<bool> isDataExist({
+    required String path,
+    required String documentId,
+  }) async {
+    var data = await firestore.collection(path).doc(documentId).get();
+    return data.exists;
   }
 }

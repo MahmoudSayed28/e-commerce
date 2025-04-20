@@ -81,7 +81,17 @@ class AuthRepoImpl extends AuthRepo {
     try {
       user = await authService.signInWithGoogle();
       var userEntity = UserModel.fromFireBase(user);
-      await addUser(userEntity);
+      var isUserExist = await remoteDataService.isDataExist(
+        path: BackendEndpoints.path,
+        documentId: user.uid,
+      );
+      isUserExist
+          ? await remoteDataService.getData(
+            path: BackendEndpoints.path,
+            uId: user.uid,
+          )
+          : await addUser(userEntity);
+      await cacheHelper.setString(kUserName, userEntity.name);
       return right(UserModel.fromFireBase(user));
     } catch (e) {
       user != null ? await authService.deleteUser() : null;
