@@ -1,4 +1,3 @@
-import 'package:fruits_app/core/helper/cache_helper.dart';
 import 'package:fruits_app/core/helper/firebase_auth_service.dart';
 import 'package:fruits_app/core/helper/firestore_service.dart';
 import 'package:fruits_app/features/auth/data/repos/auth_repo_impl.dart';
@@ -13,7 +12,6 @@ void initServiceLocator() {
       AuthRepoImpl(
         authService: FirebaseAuthService(),
         remoteDataService: FirestoreService(),
-        cacheHelper: CacheHelper(),
       ),
     ),
   );

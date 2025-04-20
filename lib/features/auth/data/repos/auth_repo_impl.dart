@@ -16,12 +16,7 @@ import 'package:fruits_app/features/auth/domain/repos/auth_repo.dart';
 class AuthRepoImpl extends AuthRepo {
   final AuthService authService;
   final RemoteDataService remoteDataService;
-  final CacheHelper cacheHelper;
-  AuthRepoImpl({
-    required this.authService,
-    required this.remoteDataService,
-    required this.cacheHelper,
-  });
+  AuthRepoImpl({required this.authService, required this.remoteDataService});
 
   @override
   Future<Either<Failure, UserEntity>> createWithEmailAndPassword({
@@ -42,8 +37,8 @@ class AuthRepoImpl extends AuthRepo {
       );
 
       await addUser(userEntity);
-      await cacheHelper.setString(kUserName, name);
-      await cacheHelper.setString(kUserEmail, email);
+      await CacheHelper.setString(kUserName, name);
+      await CacheHelper.setString(kUserEmail, email);
       return right(userEntity);
     } on CustomException catch (e) {
       user != null ? await authService.deleteUser() : null;
@@ -65,8 +60,8 @@ class AuthRepoImpl extends AuthRepo {
       var user = await authService.login(email: email, password: password);
       var userEntity = await getUser(user.uid);
 
-      await cacheHelper.setString(kUserName, userEntity.name);
-      await cacheHelper.setString(kUserEmail, userEntity.email);
+      await CacheHelper.setString(kUserName, userEntity.name);
+      await CacheHelper.setString(kUserEmail, userEntity.email);
       return right(userEntity);
     } on CustomException catch (e) {
       return left(ServerFailure(errorMessage: e.message));
@@ -91,7 +86,7 @@ class AuthRepoImpl extends AuthRepo {
             uId: user.uid,
           )
           : await addUser(userEntity);
-      await cacheHelper.setString(kUserName, userEntity.name);
+      await CacheHelper.setString(kUserName, userEntity.name);
       return right(UserModel.fromFireBase(user));
     } catch (e) {
       user != null ? await authService.deleteUser() : null;

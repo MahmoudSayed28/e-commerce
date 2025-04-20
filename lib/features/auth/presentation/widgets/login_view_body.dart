@@ -110,7 +110,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     SocialLoginButton(
                       title: S.of(context).appleLogin,
                       image: Assets.assetsImagesApplIcon,
-                      onPressed: () {},
+                      onPressed: () async {},
                     ),
                     SocialLoginButton(
                       title: S.of(context).facebookLogin,
