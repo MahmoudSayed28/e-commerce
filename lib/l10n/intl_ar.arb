@@ -43,5 +43,6 @@
     "strawberry": "فراولة",
     "pricePerKilo": " جنيه / الكيلو",
     "discount": "%25 خصم",
-    "shopNow": "تسوق الآن"
+    "shopNow": "تسوق الآن",
+    "offer": "عرض"
 }

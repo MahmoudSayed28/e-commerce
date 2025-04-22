@@ -9,7 +9,7 @@ class HomeSearchTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
       child: TextField(
         decoration: InputDecoration(
           hintText: S.of(context).search,

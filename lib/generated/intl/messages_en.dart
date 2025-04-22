@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("Most Selling"),
     "newAccount": MessageLookupByLibrary.simpleMessage("New Account"),
+    "offer": MessageLookupByLibrary.simpleMessage("Offer"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(

@@ -12,21 +12,22 @@ class CustomHomeAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: ListTile(
-        title: Text(
-          S.of(context).goodMorning,
-          style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
-        ),
-        subtitle: Text(
-          CacheHelper.getString(kUserName)!,
-          style: AppSTextStyles.bold16(null),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Image.asset(Assets.assetsImagesProfileImage, height: 54),
-        ),
-        trailing: Container(
+    return SliverAppBar(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            S.of(context).goodMorning,
+            style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
+          ),
+          Text(
+            CacheHelper.getString(kUserName)!,
+            style: AppSTextStyles.bold16(null),
+          ),
+        ],
+      ),
+      actions: [
+        Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
             color: AppColors.cardColor,
@@ -34,9 +35,11 @@ class CustomHomeAppbar extends StatelessWidget {
           ),
           child: SvgPicture.asset(Assets.assetsImagesNotification),
         ),
+      ],
+      leading: Padding(
+        padding: EdgeInsets.all(6.0),
+        child: Image.asset(Assets.assetsImagesProfileImage, height: 54),
       ),
-
-      // trailing: SvgPicture.asset(Assets.assetsImagesProfileImage),
     );
   }
 }

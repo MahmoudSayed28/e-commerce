@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("الأكثر مبيعًا"),
     "newAccount": MessageLookupByLibrary.simpleMessage("حساب جديد"),
+    "offer": MessageLookupByLibrary.simpleMessage("عرض"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(

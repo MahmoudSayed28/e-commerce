@@ -45,6 +45,7 @@
   "strawberry": "Strawberry",
   "pricePerKilo": "{price} EGP / kilo",
   "discount": "25% OFF",
-  "shopNow": "Shop Now"
+  "shopNow": "Shop Now",
+   "offer": "Offer"
   }
   

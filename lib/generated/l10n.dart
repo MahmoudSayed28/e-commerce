@@ -414,6 +414,11 @@ class S {
   String get shopNow {
     return Intl.message('Shop Now', name: 'shopNow', desc: '', args: []);
   }
+
+  /// `Offer`
+  String get offer {
+    return Intl.message('Offer', name: 'offer', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
