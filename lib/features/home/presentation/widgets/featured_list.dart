@@ -6,11 +6,16 @@ class FeaturedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.25,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(children: List.generate(4, (index) => const FeaturedItem())),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: SizedBox(
+        height: MediaQuery.sizeOf(context).height * 0.25,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(4, (index) => const FeaturedItem()),
+          ),
+        ),
       ),
     );
   }
