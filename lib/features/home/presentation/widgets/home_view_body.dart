@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fruits_app/features/home/presentation/widgets/custom_home_appbar.dart';
 import 'package:fruits_app/features/home/presentation/widgets/featured_item.dart';
+import 'package:fruits_app/features/home/presentation/widgets/featured_list.dart';
 import 'package:fruits_app/features/home/presentation/widgets/home_search_textfield.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -16,7 +17,7 @@ class HomeViewBody extends StatelessWidget {
         slivers: [
           CustomHomeAppbar(),
           SliverToBoxAdapter(child: HomeSearchTextfield()),
-          SliverToBoxAdapter(child: FeaturedItem()),
+          SliverToBoxAdapter(child: FeaturedList()),
         ],
       ),
     );
