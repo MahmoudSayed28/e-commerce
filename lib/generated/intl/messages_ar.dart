@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+    "good_morning": MessageLookupByLibrary.simpleMessage("صباح الخير !"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة جوجل"),
     "haveAccount": MessageLookupByLibrary.simpleMessage("تمتلك حساب بالفعل؟"),
     "haveNoAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),

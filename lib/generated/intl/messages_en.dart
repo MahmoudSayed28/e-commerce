@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "We offer you the finest carefully selected fruits. Check details, images, and reviews to make sure you\'re choosing the perfect fruit.",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+    "good_morning": MessageLookupByLibrary.simpleMessage("Good morning!"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("Continue with Google"),
     "haveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",

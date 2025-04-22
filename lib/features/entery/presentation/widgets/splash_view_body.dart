@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fruits_app/core/utils/assets_manager.dart';
-import 'package:svg_flutter/svg.dart';
 
 class SplashViewBody extends StatelessWidget {
   const SplashViewBody({super.key});

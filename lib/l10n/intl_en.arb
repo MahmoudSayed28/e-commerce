@@ -35,6 +35,7 @@
    "passwordUppercase": "Password must contain at least one uppercase letter",
    "passwordNumber": "Password must contain at least one number",
    "userNotFound": "No user found for that email.",
-  "wrongPassword": "Wrong password provided for that user."
+  "wrongPassword": "Wrong password provided for that user.",
+  "good_morning": "Good morning!"
   }
   

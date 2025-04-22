@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
-import 'package:svg_flutter/svg.dart';
 
 class SocialLoginButton extends StatelessWidget {
   const SocialLoginButton({

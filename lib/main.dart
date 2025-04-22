@@ -8,6 +8,7 @@ import 'package:fruits_app/core/helper/route_method.dart';
 import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/theme_manager.dart';
 import 'package:fruits_app/features/entery/presentation/views/splash_view.dart';
+import 'package:fruits_app/features/home/presentation/views/home_view.dart';
 import 'package:fruits_app/firebase_options.dart';
 import 'generated/l10n.dart';
 
@@ -26,6 +27,7 @@ class FruitsHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: const HomeView(),
       theme: getApplicationTheme(),
       locale: const Locale('ar'),
       localizationsDelegates: const [
@@ -37,7 +39,7 @@ class FruitsHub extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: onGenerateRoute,
-      initialRoute: SplashView.id,
+      // initialRoute: SplashView.id,
     );
   }
 }
