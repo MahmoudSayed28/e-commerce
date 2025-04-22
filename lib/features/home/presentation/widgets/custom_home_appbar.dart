@@ -15,7 +15,7 @@ class CustomHomeAppbar extends StatelessWidget {
     return SliverToBoxAdapter(
       child: ListTile(
         title: Text(
-          S.of(context).good_morning,
+          S.of(context).goodMorning,
           style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
         ),
         subtitle: Text(

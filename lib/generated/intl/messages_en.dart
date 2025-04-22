@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(price) => "${price} EGP / kilo";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
@@ -33,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "there is an error try later",
     ),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create an account"),
+    "discount": MessageLookupByLibrary.simpleMessage("25% OFF"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
       "Don\'t worry, just enter your email address and we\'ll send you a verification code.",
@@ -41,11 +44,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with Facebook",
     ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forget Password?"),
+    "fruit": MessageLookupByLibrary.simpleMessage("Fruit"),
     "fruit_intro_subtitle2": MessageLookupByLibrary.simpleMessage(
       "We offer you the finest carefully selected fruits. Check details, images, and reviews to make sure you\'re choosing the perfect fruit.",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
-    "good_morning": MessageLookupByLibrary.simpleMessage("Good morning!"),
+    "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning!"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("Continue with Google"),
     "haveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
@@ -64,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email address",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "mostSelling": MessageLookupByLibrary.simpleMessage("Most Selling"),
     "newAccount": MessageLookupByLibrary.simpleMessage("New Account"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -76,10 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "Password must contain at least one uppercase letter",
     ),
+    "pricePerKilo": m0,
     "required": MessageLookupByLibrary.simpleMessage("Value Required"),
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "search": MessageLookupByLibrary.simpleMessage("Search..."),
+    "shopNow": MessageLookupByLibrary.simpleMessage("Shop Now"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "start": MessageLookupByLibrary.simpleMessage("Start Now"),
+    "strawberry": MessageLookupByLibrary.simpleMessage("Strawberry"),
     "termsAgreement": MessageLookupByLibrary.simpleMessage(
       "By creating an account, you agree to ",
     ),
@@ -90,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "No user found for that email.",
     ),
     "verifyCode": MessageLookupByLibrary.simpleMessage("Verify Code"),
+    "viewMore": MessageLookupByLibrary.simpleMessage("View More"),
+    "watermelon": MessageLookupByLibrary.simpleMessage("Watermelon"),
     "weakPassword": MessageLookupByLibrary.simpleMessage(
       "The password provided is too weak.",
     ),

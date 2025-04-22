@@ -34,6 +34,14 @@
     "passwordNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
      "userNotFound": "لا يوجد مستخدم بهذا البريد الإلكتروني",
     "wrongPassword": "كلمة المرور غير صحيحة",
-    "good_morning": "صباح الخير !"
-
+    "goodMorning": "صباح الخير !",
+    "search": "ابحث عن ...",
+    "mostSelling": "الأكثر مبيعًا",
+    "viewMore": "المزيد",
+    "fruit": "فراولة",
+    "watermelon": "بطيخ",
+    "strawberry": "فراولة",
+    "pricePerKilo": " جنيه / الكيلو",
+    "discount": "%25 خصم",
+    "shopNow": "تسوق الآن"
 }

@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(price) => " جنيه / الكيلو";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
@@ -33,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "حدث خطأ ما، حاول مرة أخرى",
     ),
     "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
+    "discount": MessageLookupByLibrary.simpleMessage("%25 خصم"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
       "لا تقلق، ما عليك سوى كتابة بريدك الإلكتروني وسنرسل لك رمز التحقق.",
@@ -41,11 +44,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "تسجيل بواسطة فيسبوك",
     ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+    "fruit": MessageLookupByLibrary.simpleMessage("فراولة"),
     "fruit_intro_subtitle2": MessageLookupByLibrary.simpleMessage(
       "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
-    "good_morning": MessageLookupByLibrary.simpleMessage("صباح الخير !"),
+    "goodMorning": MessageLookupByLibrary.simpleMessage("صباح الخير !"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة جوجل"),
     "haveAccount": MessageLookupByLibrary.simpleMessage("تمتلك حساب بالفعل؟"),
     "haveNoAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
@@ -58,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "البريد الالكتروني غير صحيح",
     ),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "mostSelling": MessageLookupByLibrary.simpleMessage("الأكثر مبيعًا"),
     "newAccount": MessageLookupByLibrary.simpleMessage("حساب جديد"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -70,10 +75,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
+    "pricePerKilo": m0,
     "required": MessageLookupByLibrary.simpleMessage("القيمة مطلوبة"),
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "search": MessageLookupByLibrary.simpleMessage("ابحث عن ..."),
+    "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الآن"),
     "skip": MessageLookupByLibrary.simpleMessage("تخط"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ الان"),
+    "strawberry": MessageLookupByLibrary.simpleMessage("فراولة"),
     "termsAgreement": MessageLookupByLibrary.simpleMessage(
       " من خلال إنشاء حساب، فإنك توافق على ",
     ),
@@ -84,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يوجد مستخدم بهذا البريد الإلكتروني",
     ),
     "verifyCode": MessageLookupByLibrary.simpleMessage("التحقق من الرمز"),
+    "viewMore": MessageLookupByLibrary.simpleMessage("المزيد"),
+    "watermelon": MessageLookupByLibrary.simpleMessage("بطيخ"),
     "weakPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور المدخلة ضعيفة جداً",
     ),

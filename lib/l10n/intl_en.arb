@@ -36,6 +36,15 @@
    "passwordNumber": "Password must contain at least one number",
    "userNotFound": "No user found for that email.",
   "wrongPassword": "Wrong password provided for that user.",
-  "good_morning": "Good morning!"
+  "goodMorning": "Good morning!",
+  "search": "Search...",
+  "mostSelling": "Most Selling",
+  "viewMore": "View More",
+  "fruit": "Fruit",
+  "watermelon": "Watermelon",
+  "strawberry": "Strawberry",
+  "pricePerKilo": "{price} EGP / kilo",
+  "discount": "25% OFF",
+  "shopNow": "Shop Now"
   }
   

@@ -351,13 +351,68 @@ class S {
   }
 
   /// `Good morning!`
-  String get good_morning {
+  String get goodMorning {
     return Intl.message(
       'Good morning!',
-      name: 'good_morning',
+      name: 'goodMorning',
       desc: '',
       args: [],
     );
+  }
+
+  /// `Search...`
+  String get search {
+    return Intl.message('Search...', name: 'search', desc: '', args: []);
+  }
+
+  /// `Most Selling`
+  String get mostSelling {
+    return Intl.message(
+      'Most Selling',
+      name: 'mostSelling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View More`
+  String get viewMore {
+    return Intl.message('View More', name: 'viewMore', desc: '', args: []);
+  }
+
+  /// `Fruit`
+  String get fruit {
+    return Intl.message('Fruit', name: 'fruit', desc: '', args: []);
+  }
+
+  /// `Watermelon`
+  String get watermelon {
+    return Intl.message('Watermelon', name: 'watermelon', desc: '', args: []);
+  }
+
+  /// `Strawberry`
+  String get strawberry {
+    return Intl.message('Strawberry', name: 'strawberry', desc: '', args: []);
+  }
+
+  /// `{price} EGP / kilo`
+  String pricePerKilo(Object price) {
+    return Intl.message(
+      '$price EGP / kilo',
+      name: 'pricePerKilo',
+      desc: '',
+      args: [price],
+    );
+  }
+
+  /// `25% OFF`
+  String get discount {
+    return Intl.message('25% OFF', name: 'discount', desc: '', args: []);
+  }
+
+  /// `Shop Now`
+  String get shopNow {
+    return Intl.message('Shop Now', name: 'shopNow', desc: '', args: []);
   }
 }
 
