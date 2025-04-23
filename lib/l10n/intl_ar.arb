@@ -44,5 +44,10 @@
     "pricePerKilo": " جنيه / الكيلو",
     "discount": "%25 خصم",
     "shopNow": "تسوق الآن",
-    "offer": "عرض"
+    "offer": "عرض",
+    "home": "الرئيسية",
+  "products": "المنتجات",
+  "cart": "سلة التسوق",
+  "account": "حسابي"
+
 }

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
       "Please accept the terms and conditions to proceed.",
     ),
+    "account": MessageLookupByLibrary.simpleMessage("Account"),
     "accountExists": MessageLookupByLibrary.simpleMessage(
       "The account already exists for that email.",
     ),
@@ -34,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "authError": MessageLookupByLibrary.simpleMessage(
       "there is an error try later",
     ),
+    "cart": MessageLookupByLibrary.simpleMessage("Shopping Cart"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create an account"),
     "discount": MessageLookupByLibrary.simpleMessage("25% OFF"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -57,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "haveNoAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "home_intro_subtitle1": MessageLookupByLibrary.simpleMessage(
       "Discover a unique shopping experience with FruitHUB. Explore our wide selection of premium fresh fruits and enjoy the best deals with top quality.",
     ),
@@ -83,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Password must contain at least one uppercase letter",
     ),
     "pricePerKilo": m0,
+    "products": MessageLookupByLibrary.simpleMessage("Products"),
     "required": MessageLookupByLibrary.simpleMessage("Value Required"),
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
     "search": MessageLookupByLibrary.simpleMessage("Search..."),

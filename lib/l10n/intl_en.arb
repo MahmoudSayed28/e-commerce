@@ -46,6 +46,10 @@
   "pricePerKilo": "{price} EGP / kilo",
   "discount": "25% OFF",
   "shopNow": "Shop Now",
-   "offer": "Offer"
+   "offer": "Offer",
+   "home": "Home",
+  "products": "Products",
+  "cart": "Shopping Cart",
+  "account": "Account"
   }
   

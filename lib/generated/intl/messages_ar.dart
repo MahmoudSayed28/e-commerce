@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
       "من فضلك وافق علي الشروط والاحكام",
     ),
+    "account": MessageLookupByLibrary.simpleMessage("حسابي"),
     "accountExists": MessageLookupByLibrary.simpleMessage(
       "الحساب يوجد بالفعل لهذا البريد الالكتروني",
     ),
@@ -34,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "authError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما، حاول مرة أخرى",
     ),
+    "cart": MessageLookupByLibrary.simpleMessage("سلة التسوق"),
     "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
     "discount": MessageLookupByLibrary.simpleMessage("%25 خصم"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
@@ -53,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "googleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة جوجل"),
     "haveAccount": MessageLookupByLibrary.simpleMessage("تمتلك حساب بالفعل؟"),
     "haveNoAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+    "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "home_intro_subtitle1": MessageLookupByLibrary.simpleMessage(
       "اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
     ),
@@ -77,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
     "pricePerKilo": m0,
+    "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
     "required": MessageLookupByLibrary.simpleMessage("القيمة مطلوبة"),
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن ..."),

@@ -31,14 +31,13 @@ class ProductCard extends StatelessWidget {
                 Image.asset(Assets.assetsImagesWatermelonTest),
                 Flexible(
                   child: ListTile(
-                    title: Flexible(
-                      child: Text(
-                        S.of(context).watermelon,
-                        style: AppSTextStyles.bold13(null),
-                      ),
+                    title: Text(
+                      S.of(context).watermelon,
+                      style: AppSTextStyles.bold13(null),
+                      overflow: TextOverflow.ellipsis, // مهم لو النص طويل
                     ),
                     subtitle: Text(
-                      " 30 ${S.of(context).pricePerKilo(0)}",
+                      "30 ${S.of(context).pricePerKilo(0)}",
                       style: AppSTextStyles.bold13(AppColors.secondaryColor),
                     ),
                     trailing: GestureDetector(
