@@ -7,25 +7,47 @@ import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/core/utils/constant.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
-class CustomHomeAppbar extends StatelessWidget {
-  const CustomHomeAppbar({super.key});
+class CustomHomeAppbar extends StatefulWidget {
+  const CustomHomeAppbar({super.key, required this.isScrolled});
+  final bool isScrolled;
 
+  @override
+  State<CustomHomeAppbar> createState() => _CustomHomeAppbarState();
+}
+
+class _CustomHomeAppbarState extends State<CustomHomeAppbar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            S.of(context).goodMorning,
-            style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
-          ),
-          Text(
-            CacheHelper.getString(kUserName)!,
-            style: AppSTextStyles.bold16(null),
-          ),
-        ],
-      ),
+      surfaceTintColor: Colors.white,
+      pinned: true,
+      elevation: 0,
+      expandedHeight: 0,
+      backgroundColor: Colors.white,
+
+      title:
+          widget.isScrolled
+              ? Center(
+                child: Text(
+                  S.of(context).mostSelling,
+                  style: AppSTextStyles.bold19(null),
+                ),
+              )
+              : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).goodMorning,
+                    style: AppSTextStyles.regular16(
+                      AppColors.lightSubtitleColor,
+                    ),
+                  ),
+                  Text(
+                    CacheHelper.getString(kUserName)!,
+                    style: AppSTextStyles.bold16(null),
+                  ),
+                ],
+              ),
       actions: [
         Container(
           padding: const EdgeInsets.all(10),
