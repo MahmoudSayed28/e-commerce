@@ -25,29 +25,32 @@ class _CustomHomeAppbarState extends State<CustomHomeAppbar> {
       expandedHeight: 0,
       backgroundColor: Colors.white,
 
-      title:
-          widget.isScrolled
-              ? Center(
-                child: Text(
-                  S.of(context).mostSelling,
-                  style: AppSTextStyles.bold19(null),
-                ),
-              )
-              : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    S.of(context).goodMorning,
-                    style: AppSTextStyles.regular16(
-                      AppColors.lightSubtitleColor,
-                    ),
-                  ),
-                  Text(
-                    CacheHelper.getString(kUserName)!,
-                    style: AppSTextStyles.bold16(null),
-                  ),
-                ],
-              ),
+      title: AnimatedCrossFade(
+        firstChild: Center(
+          child: Text(
+            S.of(context).mostSelling,
+            style: AppSTextStyles.bold19(null),
+          ),
+        ),
+        secondChild: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              S.of(context).goodMorning,
+              style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
+            ),
+            Text(
+              CacheHelper.getString(kUserName)!,
+              style: AppSTextStyles.bold16(null),
+            ),
+          ],
+        ),
+        crossFadeState:
+            widget.isScrolled
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+        duration: const Duration(milliseconds: 400),
+      ),
       actions: [
         Container(
           padding: const EdgeInsets.all(10),

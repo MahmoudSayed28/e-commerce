@@ -27,7 +27,7 @@ class FruitsHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomeView(),
+      home: const SplashView(),
       theme: getApplicationTheme(),
       locale: const Locale('ar'),
       localizationsDelegates: const [

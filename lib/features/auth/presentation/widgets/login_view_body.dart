@@ -27,7 +27,7 @@ class LoginViewBody extends StatefulWidget {
 
 class _LoginViewBodyState extends State<LoginViewBody> {
   bool isLoading = false;
-  late String email, password;
+  String? email, password;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -51,6 +51,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             inAsyncCall: isLoading,
             child: SingleChildScrollView(
               child: Form(
+                key: formKey,
                 child: Column(
                   spacing: 16,
                   children: [
@@ -82,10 +83,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     CustomElevetedButton(
                       text: S.of(context).login,
                       onPressed: () async {
-                        await blocProvider.login(
-                          email: email,
-                          password: password,
-                        );
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+
+                          await blocProvider.login(
+                            email: email!,
+                            password: password!,
+                          );
+                        }
                       },
                     ),
                     const SizedBox(height: 4),
