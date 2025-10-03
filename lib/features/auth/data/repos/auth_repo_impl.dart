@@ -83,7 +83,7 @@ class AuthRepoImpl extends AuthRepo {
       isUserExist
           ? await remoteDataService.getData(
             path: BackendEndpoints.path,
-            uId: user.uid,
+            documentId: user.uid,
           )
           : await addUser(userEntity);
       await CacheHelper.setString(kUserName, userEntity.name);
@@ -107,7 +107,7 @@ class AuthRepoImpl extends AuthRepo {
   Future<UserEntity> getUser(String uId) async {
     var data = await remoteDataService.getData(
       path: BackendEndpoints.path,
-      uId: uId,
+      documentId: uId,
     );
     return UserModel.fromJson(data);
   }
