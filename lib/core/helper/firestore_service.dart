@@ -6,7 +6,11 @@ abstract class RemoteDataService {
     required Map<String, dynamic> data,
     String? documentId,
   });
-  Future<dynamic> getData({required String path, String? documentId});
+  Future<dynamic> getData({
+    required String path,
+    String? documentId,
+    Map<String, dynamic>? query,
+  });
   Future<bool> isDataExist({required String path, required String documentId});
 }
 
@@ -25,14 +29,31 @@ class FirestoreService implements RemoteDataService {
   }
 
   @override
-  Future<dynamic> getData({required String path, String? documentId}) async {
+  Future<dynamic> getData({
+    required String path,
+    String? documentId,
+    Map<String, dynamic>? query,
+  }) async {
     if (documentId != null) {
       DocumentSnapshot data =
           await firestore.collection(path).doc(documentId).get();
       return data.data() as Map<String, dynamic>;
     } else {
-      var data = await firestore.collection(path).get();
-      return data.docs.map((e) => e.data()).toList();
+      Query<Map<String, dynamic>> data = firestore.collection(path);
+      if (query != null) {
+        var orderBy = query['orderBy'];
+        var limit = query['limit'];
+        var descending = query['descending'];
+
+        if (orderBy != null) {
+          data = data.orderBy(orderBy, descending: descending);
+        }
+        if (limit != null) {
+          data = data.limit(limit);
+        }
+      }
+      var result = await data.get();
+      return result.docs.map((e) => e.data()).toList();
     }
   }
 
