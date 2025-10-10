@@ -4,18 +4,20 @@ import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/features/home/domain/entity/bottom_navigation_item_entity.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key});
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
-  @override
-  State<CustomBottomNavigationBar> createState() =>
-      _CustomBottomNavigationBarState();
-}
+  final int currentIndex;
+  final ValueChanged<int> onTap;
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final items = bottomNavigationBarItems(context);
+
     return Container(
       height: 70,
       decoration: const BoxDecoration(
@@ -31,11 +33,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children:
-            bottomNavigationBarItems(context).asMap().entries.map((entry) {
+            items.asMap().entries.map((entry) {
               int index = entry.key;
               BottomNavigationBarEntity iconEntity = entry.value;
               return GestureDetector(
-                onTap: () => setState(() => currentIndex = index),
+                onTap: () => onTap(index),
                 child: BottomNavigationBarIcon(
                   iconEntity: iconEntity,
                   isActive: currentIndex == index,
@@ -53,8 +55,10 @@ class BottomNavigationBarIcon extends StatelessWidget {
     required this.iconEntity,
     required this.isActive,
   });
+
   final BottomNavigationBarEntity iconEntity;
   final bool isActive;
+
   @override
   Widget build(BuildContext context) {
     return isActive
@@ -65,7 +69,10 @@ class BottomNavigationBarIcon extends StatelessWidget {
 
 class ActiveIcon extends StatelessWidget {
   const ActiveIcon({super.key, required this.label, required this.image});
-  final String label, image;
+
+  final String label;
+  final String image;
+
   @override
   Widget build(BuildContext context) {
     return Center(

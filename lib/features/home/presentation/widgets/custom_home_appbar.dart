@@ -40,7 +40,7 @@ class _CustomHomeAppbarState extends State<CustomHomeAppbar> {
               style: AppSTextStyles.regular16(AppColors.lightSubtitleColor),
             ),
             Text(
-              CacheHelper.getString(kUserName)!,
+              CacheHelper.getString(kUserName) ?? '',
               style: AppSTextStyles.bold16(null),
             ),
           ],

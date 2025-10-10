@@ -9,6 +9,7 @@ import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/theme_manager.dart';
 import 'package:fruits_app/features/entery/presentation/views/splash_view.dart';
 import 'package:fruits_app/firebase_options.dart';
+import 'package:fruits_app/main_layout.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -26,7 +27,7 @@ class FruitsHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SplashView(),
+      home: const MainLayout(),
       theme: getApplicationTheme(),
       locale: const Locale('ar'),
       localizationsDelegates: const [
