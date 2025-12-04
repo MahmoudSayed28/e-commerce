@@ -4,4 +4,4 @@ const kIsOnBoardingViewSeen = 'isOnBoardingViewSeen';
 const kUserData = 'userData';
 const String kUserName = 'username';
 const String kUserEmail = 'useremail';
-const String kProducts = 'useremail';
+const String kProducts = 'products'; //?products

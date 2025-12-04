@@ -1,12 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_app/core/entities/product_entity.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
-import 'package:fruits_app/core/utils/assets_manager.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
-
+  const ProductCard({super.key, required this.product});
+  final ProductEntity product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,16 +29,21 @@ class ProductCard extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                Image.asset(Assets.assetsImagesWatermelonTest),
+                CachedNetworkImage(
+                  imageUrl: product.imageUrl ?? '',
+                  placeholder:
+                      (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
                 Flexible(
                   child: ListTile(
                     title: Text(
-                      S.of(context).watermelon,
+                      product.name,
                       style: AppSTextStyles.bold13(null),
                       overflow: TextOverflow.ellipsis, // مهم لو النص طويل
                     ),
                     subtitle: Text(
-                      "30 ${S.of(context).pricePerKilo(0)}",
+                      "${product.price} ${S.of(context).pricePerKilo(0)}",
                       style: AppSTextStyles.bold13(AppColors.secondaryColor),
                     ),
                     trailing: GestureDetector(
@@ -61,19 +67,19 @@ class ProductCard extends StatelessWidget {
 }
 
 class ProductGradView extends StatelessWidget {
-  const ProductGradView({super.key});
-
+  const ProductGradView({super.key, required this.products});
+  final List<ProductEntity> products;
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
-      itemCount: 12,
+      itemCount: products.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
         childAspectRatio: 0.76,
       ),
-      itemBuilder: (context, index) => const ProductCard(),
+      itemBuilder: (context, index) => ProductCard(product: products[index]),
     );
   }
 }
