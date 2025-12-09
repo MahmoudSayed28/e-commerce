@@ -20,8 +20,6 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(price) => "${price} EGP / kilo";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "haveNoAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
+    "highPrice": MessageLookupByLibrary.simpleMessage("Price: High to Low"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "home_intro_subtitle1": MessageLookupByLibrary.simpleMessage(
       "Discover a unique shopping experience with FruitHUB. Explore our wide selection of premium fresh fruits and enjoy the best deals with top quality.",
@@ -71,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invalid email address",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "lowPrice": MessageLookupByLibrary.simpleMessage("Price: Low to High"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("Most Selling"),
     "newAccount": MessageLookupByLibrary.simpleMessage("New Account"),
     "offer": MessageLookupByLibrary.simpleMessage("Offer"),
@@ -85,10 +85,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "Password must contain at least one uppercase letter",
     ),
-    "pricePerKilo": m0,
+    "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
     "products": MessageLookupByLibrary.simpleMessage("Products"),
     "required": MessageLookupByLibrary.simpleMessage("Value Required"),
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "results": MessageLookupByLibrary.simpleMessage("Results"),
     "search": MessageLookupByLibrary.simpleMessage("Search..."),
     "shopNow": MessageLookupByLibrary.simpleMessage("Shop Now"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),

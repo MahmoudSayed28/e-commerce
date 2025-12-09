@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_app/features/home/presentation/views/cart_view.dart';
 import 'package:fruits_app/features/home/presentation/views/home_view.dart';
-import 'package:fruits_app/features/home/presentation/views/product_view.dart';
+import 'package:fruits_app/features/home/presentation/views/products_view.dart';
 import 'package:fruits_app/features/home/presentation/views/profile_view.dart';
 import 'package:fruits_app/features/home/presentation/widgets/custom_bottom_navigation_bar.dart';
 
@@ -30,7 +30,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> views = const [
     HomeView(),
-    ProductView(),
+    ProductsView(),
     CartView(),
     ProfileView(),
   ];

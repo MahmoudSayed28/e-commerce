@@ -20,8 +20,6 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(price) => " جنيه / الكيلو";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
@@ -46,15 +44,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "تسجيل بواسطة فيسبوك",
     ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
-    "fruit": MessageLookupByLibrary.simpleMessage("فراولة"),
+    "fruit": MessageLookupByLibrary.simpleMessage("فاكهة"),
     "fruit_intro_subtitle2": MessageLookupByLibrary.simpleMessage(
-      "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
+      "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية.",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "goodMorning": MessageLookupByLibrary.simpleMessage("صباح الخير !"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة جوجل"),
     "haveAccount": MessageLookupByLibrary.simpleMessage("تمتلك حساب بالفعل؟"),
     "haveNoAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+    "highPrice": MessageLookupByLibrary.simpleMessage("السعر من الأعلى للاقل"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "home_intro_subtitle1": MessageLookupByLibrary.simpleMessage(
       "اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
@@ -65,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "البريد الالكتروني غير صحيح",
     ),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "lowPrice": MessageLookupByLibrary.simpleMessage("السعر من الاقل للأعلى"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("الأكثر مبيعًا"),
     "newAccount": MessageLookupByLibrary.simpleMessage("حساب جديد"),
     "offer": MessageLookupByLibrary.simpleMessage("عرض"),
@@ -79,10 +79,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
-    "pricePerKilo": m0,
+    "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
     "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
     "required": MessageLookupByLibrary.simpleMessage("القيمة مطلوبة"),
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "results": MessageLookupByLibrary.simpleMessage("النتائج"),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن ..."),
     "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الآن"),
     "skip": MessageLookupByLibrary.simpleMessage("تخط"),

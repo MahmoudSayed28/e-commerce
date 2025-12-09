@@ -395,13 +395,13 @@ class S {
     return Intl.message('Strawberry', name: 'strawberry', desc: '', args: []);
   }
 
-  /// `{price} EGP / kilo`
-  String pricePerKilo(Object price) {
+  /// ` EGP / kilo`
+  String get pricePerKilo {
     return Intl.message(
-      '$price EGP / kilo',
+      ' EGP / kilo',
       name: 'pricePerKilo',
       desc: '',
-      args: [price],
+      args: [],
     );
   }
 
@@ -438,6 +438,31 @@ class S {
   /// `Account`
   String get account {
     return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Results`
+  String get results {
+    return Intl.message('Results', name: 'results', desc: '', args: []);
+  }
+
+  /// `Price: High to Low`
+  String get highPrice {
+    return Intl.message(
+      'Price: High to Low',
+      name: 'highPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price: Low to High`
+  String get lowPrice {
+    return Intl.message(
+      'Price: Low to High',
+      name: 'lowPrice',
+      desc: '',
+      args: [],
+    );
   }
 }
 

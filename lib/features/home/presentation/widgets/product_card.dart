@@ -29,11 +29,21 @@ class ProductCard extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                CachedNetworkImage(
-                  imageUrl: product.imageUrl ?? '',
-                  placeholder:
-                      (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                Flexible(
+                  child: CachedNetworkImage(
+                    height: 100,
+                    fit: BoxFit.fill,
+                    imageUrl: product.imageUrl ?? '',
+                    placeholder:
+                        (context, url) => const Center(
+                          child: SizedBox(
+                            height: 30,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                    errorWidget:
+                        (context, url, error) => const Icon(Icons.error),
+                  ),
                 ),
                 Flexible(
                   child: ListTile(
@@ -43,7 +53,7 @@ class ProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis, // مهم لو النص طويل
                     ),
                     subtitle: Text(
-                      "${product.price} ${S.of(context).pricePerKilo(0)}",
+                      "${product.price} ${S.of(context).pricePerKilo}",
                       style: AppSTextStyles.bold13(AppColors.secondaryColor),
                     ),
                     trailing: GestureDetector(
@@ -58,28 +68,8 @@ class ProductCard extends StatelessWidget {
               ],
             ),
           ),
-
-          // زر الإضافة
         ],
       ),
-    );
-  }
-}
-
-class ProductGradView extends StatelessWidget {
-  const ProductGradView({super.key, required this.products});
-  final List<ProductEntity> products;
-  @override
-  Widget build(BuildContext context) {
-    return SliverGrid.builder(
-      itemCount: products.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 0.76,
-      ),
-      itemBuilder: (context, index) => ProductCard(product: products[index]),
     );
   }
 }

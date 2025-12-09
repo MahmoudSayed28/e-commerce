@@ -43,13 +43,16 @@
   "fruit": "Fruit",
   "watermelon": "Watermelon",
   "strawberry": "Strawberry",
-  "pricePerKilo": "{price} EGP / kilo",
+  "pricePerKilo": " EGP / kilo",
   "discount": "25% OFF",
   "shopNow": "Shop Now",
    "offer": "Offer",
    "home": "Home",
   "products": "Products",
   "cart": "Shopping Cart",
-  "account": "Account"
+  "account": "Account",
+  "results":"Results",
+  "highPrice":"Price: High to Low",
+  "lowPrice":"Price: Low to High"
   }
   

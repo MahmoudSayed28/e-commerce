@@ -10,7 +10,7 @@ import 'package:fruits_app/features/home/presentation/widgets/best_seller_header
 import 'package:fruits_app/features/home/presentation/widgets/custom_home_appbar.dart';
 import 'package:fruits_app/features/home/presentation/widgets/featured_list.dart';
 import 'package:fruits_app/features/home/presentation/widgets/home_search_textfield.dart';
-import 'package:fruits_app/features/home/presentation/widgets/product_card.dart';
+import 'package:fruits_app/features/home/presentation/widgets/product_grid_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeViewBody extends StatefulWidget {
