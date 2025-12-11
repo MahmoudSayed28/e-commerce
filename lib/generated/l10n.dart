@@ -489,6 +489,11 @@ class S {
   String get unit {
     return Intl.message('kg', name: 'unit', desc: '', args: []);
   }
+
+  /// `Pay`
+  String get pay {
+    return Intl.message('Pay', name: 'pay', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

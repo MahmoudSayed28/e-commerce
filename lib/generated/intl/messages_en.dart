@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "Password must contain at least one uppercase letter",
     ),
+    "pay": MessageLookupByLibrary.simpleMessage("Pay"),
     "pound": MessageLookupByLibrary.simpleMessage("pounds"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
     "products": MessageLookupByLibrary.simpleMessage("Products"),

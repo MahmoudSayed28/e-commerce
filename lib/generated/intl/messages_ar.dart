@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
+    "pay": MessageLookupByLibrary.simpleMessage("ادفع"),
     "pound": MessageLookupByLibrary.simpleMessage("جنيه"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
     "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
