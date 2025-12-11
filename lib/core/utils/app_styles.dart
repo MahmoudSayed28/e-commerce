@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class AppSTextStyles {
+abstract class AppTextStyles {
   static TextStyle bold(double size, Color? color) {
     return TextStyle(fontWeight: FontWeight.w700, fontSize: size, color: color);
   }

@@ -12,7 +12,7 @@ class OrDivider extends StatelessWidget {
         const CustomDivider(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Text(S.of(context).or, style: AppSTextStyles.semiBold16(null)),
+          child: Text(S.of(context).or, style: AppTextStyles.semiBold16(null)),
         ),
         const CustomDivider(),
       ],

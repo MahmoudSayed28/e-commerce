@@ -52,7 +52,7 @@ class PageViewItem extends StatelessWidget {
                     },
                     child: Text(
                       S.of(context).skip,
-                      style: AppSTextStyles.regular16(AppColors.subtitleColor),
+                      style: AppTextStyles.regular16(AppColors.subtitleColor),
                     ),
                   ),
                 ),
@@ -66,7 +66,7 @@ class PageViewItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Text(
             subtitle,
-            style: AppSTextStyles.regular13(AppColors.subtitleColor),
+            style: AppTextStyles.regular13(AppColors.subtitleColor),
           ),
         ),
       ],

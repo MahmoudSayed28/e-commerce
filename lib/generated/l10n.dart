@@ -464,6 +464,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Cart`
+  String get theCart {
+    return Intl.message('Cart', name: 'theCart', desc: '', args: []);
+  }
+
+  /// `You have`
+  String get have {
+    return Intl.message('You have', name: 'have', desc: '', args: []);
+  }
+
+  /// `items in`
+  String get itemsInCart {
+    return Intl.message('items in', name: 'itemsInCart', desc: '', args: []);
+  }
+
+  /// `pounds`
+  String get pound {
+    return Intl.message('pounds', name: 'pound', desc: '', args: []);
+  }
+
+  /// `kg`
+  String get unit {
+    return Intl.message('kg', name: 'unit', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -36,7 +36,7 @@ class _PasswordTextFormFielsState extends State<PasswordTextFormFiels> {
           ]).call,
       onChanged: widget.onChanged,
       obscureText: isObsecure,
-      style: AppSTextStyles.semiBold16(null),
+      style: AppTextStyles.semiBold16(null),
       decoration: InputDecoration(
         suffixIcon: IconButton(
           onPressed: () {
@@ -50,7 +50,7 @@ class _PasswordTextFormFielsState extends State<PasswordTextFormFiels> {
                   : const Icon(Icons.visibility_off),
         ),
         hintText: widget.hintText,
-        hintStyle: AppSTextStyles.semiBold16(null),
+        hintStyle: AppTextStyles.semiBold16(null),
         filled: true,
         fillColor: const Color(0xffF9FAFA),
         border: outlineInputBorder(),

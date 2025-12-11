@@ -33,7 +33,7 @@ class SocialLoginButton extends StatelessWidget {
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: AppSTextStyles.semiBold16(null),
+            style: AppTextStyles.semiBold16(null),
           ),
         ),
       ),

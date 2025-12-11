@@ -8,6 +8,6 @@ PreferredSizeWidget customAppBar(String title) {
       icon: const Icon(Icons.arrow_back_ios),
     ),
     centerTitle: true,
-    title: Text(title, style: AppSTextStyles.bold19(null)),
+    title: Text(title, style: AppTextStyles.bold19(null)),
   );
 }

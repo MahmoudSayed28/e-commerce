@@ -7,7 +7,7 @@ import 'package:fruits_app/core/cubit/product_cubit/product_cubit.dart';
 import 'package:fruits_app/core/helper/dummy_product.dart';
 
 import 'package:fruits_app/features/home/presentation/widgets/best_seller_header.dart';
-import 'package:fruits_app/features/home/presentation/widgets/custom_home_appbar.dart';
+import 'package:fruits_app/features/home/presentation/widgets/custom_user_data_appbar.dart';
 import 'package:fruits_app/features/home/presentation/widgets/featured_list.dart';
 import 'package:fruits_app/features/home/presentation/widgets/home_search_textfield.dart';
 import 'package:fruits_app/features/home/presentation/widgets/product_grid_view.dart';
@@ -56,7 +56,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       child: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          CustomHomeAppbar(isScrolled: _isScrolled),
+          CustomUserDataAppBar(isScrolled: _isScrolled),
           const SliverToBoxAdapter(child: HomeSearchTextfield()),
           const SliverToBoxAdapter(child: FeaturedList()),
           const SliverToBoxAdapter(child: BestSellerHeader()),

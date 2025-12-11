@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "goodMorning": MessageLookupByLibrary.simpleMessage("Good morning!"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("Continue with Google"),
+    "have": MessageLookupByLibrary.simpleMessage("You have"),
     "haveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invaildEmail": MessageLookupByLibrary.simpleMessage(
       "Invalid email address",
     ),
+    "itemsInCart": MessageLookupByLibrary.simpleMessage("items in"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "lowPrice": MessageLookupByLibrary.simpleMessage("Price: Low to High"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("Most Selling"),
@@ -85,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "Password must contain at least one uppercase letter",
     ),
+    "pound": MessageLookupByLibrary.simpleMessage("pounds"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
     "products": MessageLookupByLibrary.simpleMessage("Products"),
     "required": MessageLookupByLibrary.simpleMessage("Value Required"),
@@ -101,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsAndConditions": MessageLookupByLibrary.simpleMessage(
       "Our Terms and Conditions",
     ),
+    "theCart": MessageLookupByLibrary.simpleMessage("Cart"),
+    "unit": MessageLookupByLibrary.simpleMessage("kg"),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "No user found for that email.",
     ),

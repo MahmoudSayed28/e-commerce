@@ -53,6 +53,11 @@
   "account": "Account",
   "results":"Results",
   "highPrice":"Price: High to Low",
-  "lowPrice":"Price: Low to High"
+  "lowPrice":"Price: Low to High",
+  "theCart":"Cart",
+  "have":"You have",
+  "itemsInCart":"items in",
+  "pound":"pounds",
+  "unit":"kg"
   }
   

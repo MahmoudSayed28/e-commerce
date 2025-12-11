@@ -26,13 +26,13 @@ class PageViewWidget extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).home_intro_title1,
-                        style: AppSTextStyles.bold23(null),
+                        style: AppTextStyles.bold23(null),
                       ),
                       Text(
                         'HUB',
-                        style: AppSTextStyles.bold23(AppColors.secondaryColor),
+                        style: AppTextStyles.bold23(AppColors.secondaryColor),
                       ),
-                      Text('Fruits', style: AppSTextStyles.bold23(null)),
+                      Text('Fruits', style: AppTextStyles.bold23(null)),
                     ],
                   )
                   : Row(
@@ -40,12 +40,12 @@ class PageViewWidget extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).home_intro_title1,
-                        style: AppSTextStyles.bold23(null),
+                        style: AppTextStyles.bold23(null),
                       ),
-                      Text('Fruits', style: AppSTextStyles.bold23(null)),
+                      Text('Fruits', style: AppTextStyles.bold23(null)),
                       Text(
                         'HUB',
-                        style: AppSTextStyles.bold23(AppColors.secondaryColor),
+                        style: AppTextStyles.bold23(AppColors.secondaryColor),
                       ),
                     ],
                   ),
@@ -58,7 +58,7 @@ class PageViewWidget extends StatelessWidget {
           subtitle: S.of(context).fruit_intro_subtitle2,
           title: Text(
             S.of(context).home_intro_title2,
-            style: AppSTextStyles.bold23(null),
+            style: AppTextStyles.bold23(null),
           ),
         ),
       ],

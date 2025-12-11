@@ -40,13 +40,13 @@ class _TermsCheckboxState extends State<TermsCheckbox> {
                 children: [
                   TextSpan(
                     text: S.of(context).termsAgreement,
-                    style: AppSTextStyles.semiBold13(
+                    style: AppTextStyles.semiBold13(
                       AppColors.lightSubtitleColor,
                     ),
                   ),
                   TextSpan(
                     text: S.of(context).termsAndConditions,
-                    style: AppSTextStyles.semiBold13(
+                    style: AppTextStyles.semiBold13(
                       AppColors.lightPrimaryColor,
                     ),
                   ),

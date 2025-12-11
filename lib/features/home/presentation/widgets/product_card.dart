@@ -49,12 +49,12 @@ class ProductCard extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       product.name,
-                      style: AppSTextStyles.bold13(null),
+                      style: AppTextStyles.bold13(null),
                       overflow: TextOverflow.ellipsis, // مهم لو النص طويل
                     ),
                     subtitle: Text(
                       "${product.price} ${S.of(context).pricePerKilo}",
-                      style: AppSTextStyles.bold13(AppColors.secondaryColor),
+                      style: AppTextStyles.bold13(AppColors.secondaryColor),
                     ),
                     trailing: GestureDetector(
                       onTap: () {},

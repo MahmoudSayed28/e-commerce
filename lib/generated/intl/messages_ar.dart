@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "goodMorning": MessageLookupByLibrary.simpleMessage("صباح الخير !"),
     "googleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة جوجل"),
+    "have": MessageLookupByLibrary.simpleMessage("لديك"),
     "haveAccount": MessageLookupByLibrary.simpleMessage("تمتلك حساب بالفعل؟"),
     "haveNoAccount": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
     "highPrice": MessageLookupByLibrary.simpleMessage("السعر من الأعلى للاقل"),
@@ -63,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invaildEmail": MessageLookupByLibrary.simpleMessage(
       "البريد الالكتروني غير صحيح",
     ),
+    "itemsInCart": MessageLookupByLibrary.simpleMessage("منتجات في"),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "lowPrice": MessageLookupByLibrary.simpleMessage("السعر من الاقل للأعلى"),
     "mostSelling": MessageLookupByLibrary.simpleMessage("الأكثر مبيعًا"),
@@ -79,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordUppercase": MessageLookupByLibrary.simpleMessage(
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
+    "pound": MessageLookupByLibrary.simpleMessage("جنيه"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
     "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
     "required": MessageLookupByLibrary.simpleMessage("القيمة مطلوبة"),
@@ -95,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsAndConditions": MessageLookupByLibrary.simpleMessage(
       "الشروط والأحكام الخاصة بنا",
     ),
+    "theCart": MessageLookupByLibrary.simpleMessage("السلة"),
+    "unit": MessageLookupByLibrary.simpleMessage("كج"),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "لا يوجد مستخدم بهذا البريد الإلكتروني",
     ),

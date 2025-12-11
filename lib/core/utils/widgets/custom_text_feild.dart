@@ -15,10 +15,10 @@ class CustemTextFormField extends StatelessWidget {
     return TextFormField(
       onChanged: onChanged,
       validator: (value) => value!.isEmpty ? S.of(context).required : null,
-      style: AppSTextStyles.semiBold16(null),
+      style: AppTextStyles.semiBold16(null),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: AppSTextStyles.semiBold16(null),
+        hintStyle: AppTextStyles.semiBold16(null),
         filled: true,
         fillColor: const Color(0xffF9FAFA),
         border: outlineInputBorder(),

@@ -19,7 +19,7 @@ class CustomText extends StatelessWidget {
         children: [
           TextSpan(
             text: text1,
-            style: AppSTextStyles.semiBold16(AppColors.lightSubtitleColor),
+            style: AppTextStyles.semiBold16(AppColors.lightSubtitleColor),
           ),
           TextSpan(
             recognizer:
@@ -28,7 +28,7 @@ class CustomText extends StatelessWidget {
                     : null,
 
             text: text2,
-            style: AppSTextStyles.semiBold16(AppColors.lightPrimaryColor),
+            style: AppTextStyles.semiBold16(AppColors.lightPrimaryColor),
           ),
         ],
       ),

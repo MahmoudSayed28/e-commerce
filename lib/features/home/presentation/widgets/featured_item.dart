@@ -48,12 +48,12 @@ class FeaturedItem extends StatelessWidget {
                     const SizedBox(height: 25),
                     Text(
                       S.of(context).offer,
-                      style: AppSTextStyles.regular13(Colors.white),
+                      style: AppTextStyles.regular13(Colors.white),
                     ),
                     const Spacer(),
                     Text(
                       S.of(context).discount,
-                      style: AppSTextStyles.bold19(Colors.white),
+                      style: AppTextStyles.bold19(Colors.white),
                     ),
                     const SizedBox(height: 11),
                     FeaturedItemButton(onPressed: () {}),

@@ -12,5 +12,6 @@ PreferredSizeWidget customHomeAppBar(String title) {
     ],
     title: Text(title),
     centerTitle: true,
+    surfaceTintColor: Colors.white,
   );
 }

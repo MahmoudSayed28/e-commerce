@@ -15,7 +15,7 @@ class BestSellerHeader extends StatelessWidget {
           Text(
             S.of(context).mostSelling,
             textAlign: TextAlign.right,
-            style: AppSTextStyles.bold16(null),
+            style: AppTextStyles.bold16(null),
           ),
         ],
       ),

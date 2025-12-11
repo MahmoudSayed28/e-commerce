@@ -96,7 +96,7 @@ class ActiveIcon extends StatelessWidget {
             const SizedBox(width: 5),
             Text(
               label,
-              style: AppSTextStyles.semiBold11(AppColors.primaryColor),
+              style: AppTextStyles.semiBold11(AppColors.primaryColor),
             ),
           ],
         ),

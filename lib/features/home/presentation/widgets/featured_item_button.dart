@@ -21,7 +21,7 @@ class FeaturedItemButton extends StatelessWidget {
           child: FittedBox(
             child: Text(
               S.of(context).shopNow,
-              style: AppSTextStyles.bold13(AppColors.primaryColor),
+              style: AppTextStyles.bold13(AppColors.primaryColor),
             ),
           ),
         ),

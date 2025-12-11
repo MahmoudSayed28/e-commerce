@@ -14,7 +14,7 @@ class SearchResultRow extends StatelessWidget {
       children: [
         Text(
           " $resultsCount ${S.of(context).results} ",
-          style: AppSTextStyles.bold13(null),
+          style: AppTextStyles.bold13(null),
         ),
         IconButton(
           onPressed: () {},
