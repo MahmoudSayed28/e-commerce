@@ -4,12 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/assets_manager.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
+import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
 import 'package:fruits_app/features/home/presentation/widgets/cart_actions_button.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
-
+  const CartItem({super.key, required this.cartEntity});
+  final CartEntity cartEntity;
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -20,7 +21,7 @@ class CartItem extends StatelessWidget {
             height: 92,
             decoration: const BoxDecoration(color: Color(0xFFF3F5F7)),
             child: CachedNetworkImage(
-              imageUrl: 'https://via.placeholder.com/53x40',
+              imageUrl: cartEntity.product.imageUrl ?? '',
               placeholder:
                   (context, url) =>
                       const Center(child: CircularProgressIndicator()),
@@ -37,7 +38,10 @@ class CartItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text('بطيخ', style: AppTextStyles.bold13(null)),
+                    Text(
+                      cartEntity.product.name,
+                      style: AppTextStyles.bold13(null),
+                    ),
                     const Spacer(),
                     GestureDetector(
                       onTap: () {},
@@ -46,7 +50,7 @@ class CartItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '3 ${S.of(context).unit}',
+                  '${cartEntity.totalWeight} ${S.of(context).unit}',
                   textAlign: TextAlign.right,
                   style: AppTextStyles.regular13(AppColors.secondaryColor),
                 ),
@@ -55,7 +59,7 @@ class CartItem extends StatelessWidget {
                     const CartItemActionButtons(),
                     const Spacer(),
                     Text(
-                      '60 ${S.of(context).pound}',
+                      '${cartEntity.totalPrice} ${S.of(context).pound}',
                       style: AppTextStyles.bold16(AppColors.secondaryColor),
                     ),
                   ],

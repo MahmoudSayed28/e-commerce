@@ -28,7 +28,7 @@ class CartViewBody extends StatelessWidget {
             const Expanded(
               child: Padding(
                 padding: EdgeInsets.all(12),
-                child: CartItemsListView(),
+                child: CartItemsListView(cartEntity: []),
               ),
             ),
           ],

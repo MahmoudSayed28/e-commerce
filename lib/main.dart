@@ -7,7 +7,6 @@ import 'package:fruits_app/core/helper/custom_observer.dart';
 import 'package:fruits_app/core/helper/route_method.dart';
 import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/theme_manager.dart';
-import 'package:fruits_app/features/entery/presentation/views/splash_view.dart';
 import 'package:fruits_app/firebase_options.dart';
 import 'package:fruits_app/main_layout.dart';
 import 'generated/l10n.dart';
