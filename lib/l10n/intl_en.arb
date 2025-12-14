@@ -59,6 +59,8 @@
   "itemsInCart":"items in",
   "pound":"pounds",
   "unit":"kg",
-  "pay":"Pay"
+  "pay":"Pay",
+  "addedToCart": "Added to cart:",
+  "removedFromCart": "Removed from cart:"
   }
   

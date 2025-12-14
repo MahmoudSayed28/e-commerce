@@ -494,6 +494,26 @@ class S {
   String get pay {
     return Intl.message('Pay', name: 'pay', desc: '', args: []);
   }
+
+  /// `Added to cart:`
+  String get addedToCart {
+    return Intl.message(
+      'Added to cart:',
+      name: 'addedToCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Removed from cart:`
+  String get removedFromCart {
+    return Intl.message(
+      'Removed from cart:',
+      name: 'removedFromCart',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

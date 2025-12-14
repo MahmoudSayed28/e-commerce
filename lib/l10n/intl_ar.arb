@@ -57,7 +57,10 @@
   "itemsInCart":"منتجات في",
   "pound":"جنيه",
   "unit":"كج",
-  "pay":"ادفع"
+  "pay":"ادفع",
+  "addedToCart": "تمت الإضافة إلى السلة:",
+  "removedFromCart": "تم الحذف من السلة:"
+
 
 
 }

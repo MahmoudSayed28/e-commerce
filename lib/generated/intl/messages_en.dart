@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExists": MessageLookupByLibrary.simpleMessage(
       "The account already exists for that email.",
     ),
+    "addedToCart": MessageLookupByLibrary.simpleMessage("Added to cart:"),
     "appleLogin": MessageLookupByLibrary.simpleMessage("Continue with Apple"),
     "authError": MessageLookupByLibrary.simpleMessage(
       "there is an error try later",
@@ -91,6 +92,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pound": MessageLookupByLibrary.simpleMessage("pounds"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
     "products": MessageLookupByLibrary.simpleMessage("Products"),
+    "removedFromCart": MessageLookupByLibrary.simpleMessage(
+      "Removed from cart:",
+    ),
     "required": MessageLookupByLibrary.simpleMessage("Value Required"),
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
     "results": MessageLookupByLibrary.simpleMessage("Results"),

@@ -22,7 +22,7 @@ class CartCubit extends Cubit<CartState> {
       cartItems = cartItems.addItem(CartEntity(product: product, quantity: 1));
     }
 
-    emit(CartUpdated(cartItems));
+    emit(CartItemAdded(cartItems));
   }
 
   double calculateTotalPrice() {
@@ -35,6 +35,6 @@ class CartCubit extends Cubit<CartState> {
 
   void removeCart(CartEntity cart) {
     cartItems = cartItems.removeItem(cart.product);
-    emit(CartUpdated(cartItems));
+    emit(CartItemRemoved(cartItems));
   }
 }

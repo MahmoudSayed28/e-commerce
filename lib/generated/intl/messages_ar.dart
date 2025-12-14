@@ -29,6 +29,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountExists": MessageLookupByLibrary.simpleMessage(
       "الحساب يوجد بالفعل لهذا البريد الالكتروني",
     ),
+    "addedToCart": MessageLookupByLibrary.simpleMessage(
+      "تمت الإضافة إلى السلة:",
+    ),
     "appleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة أبل"),
     "authError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما، حاول مرة أخرى",
@@ -85,6 +88,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pound": MessageLookupByLibrary.simpleMessage("جنيه"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
     "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
+    "removedFromCart": MessageLookupByLibrary.simpleMessage(
+      "تم الحذف من السلة:",
+    ),
     "required": MessageLookupByLibrary.simpleMessage("القيمة مطلوبة"),
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "results": MessageLookupByLibrary.simpleMessage("النتائج"),

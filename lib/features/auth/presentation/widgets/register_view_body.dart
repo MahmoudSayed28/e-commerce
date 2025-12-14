@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruits_app/core/helper/show_snakbar.dart';
 
 import 'package:fruits_app/core/utils/constant.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
+import 'package:fruits_app/core/utils/widgets/custom_snak_bar.dart';
 import 'package:fruits_app/core/utils/widgets/custom_text_feild.dart';
 import 'package:fruits_app/features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:fruits_app/features/auth/presentation/cubits/auth_cubit/auth_state.dart';
@@ -40,10 +40,14 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
       listener: (context, state) {
         if (state is AuthFailure) {
           isLoading = false;
-          showCustomSnakBar(context, state.errorMessage);
+          showCustomSnackBar(
+            context,
+            message: state.errorMessage,
+            isError: true,
+          );
         } else if (state is AuthSuccess) {
           isLoading = false;
-          showCustomSnakBar(context, state.userEntity.email);
+          showCustomSnackBar(context, message: state.userEntity.email);
         } else {
           isLoading = true;
         }
@@ -90,9 +94,9 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               name: name,
                             );
                           } else {
-                            showCustomSnakBar(
+                            showCustomSnackBar(
                               context,
-                              S.of(context).acceptTerms,
+                              message: S.of(context).acceptTerms,
                             );
                           }
                         }
