@@ -30,4 +30,10 @@ class CartEntityList {
           }).toList(),
     );
   }
+
+  CartEntityList removeItem(ProductEntity product) {
+    return CartEntityList(
+      cartItems: cartItems.where((item) => item.product != product).toList(),
+    );
+  }
 }

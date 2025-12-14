@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/assets_manager.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
+import 'package:fruits_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_app/features/home/presentation/widgets/cart_actions_button.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
@@ -44,7 +46,9 @@ class CartItem extends StatelessWidget {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.read<CartCubit>().removeCart(cartEntity);
+                      },
                       child: SvgPicture.asset(Assets.assetsImagesTrash),
                     ),
                   ],
@@ -56,7 +60,11 @@ class CartItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const CartItemActionButtons(),
+                    CartItemActionButtons(
+                      incrementQuantity: () {},
+                      decrementQuantity: () {},
+                      quantity: 1,
+                    ),
                     const Spacer(),
                     Text(
                       '${cartEntity.totalPrice} ${S.of(context).pound}',

@@ -24,4 +24,17 @@ class CartCubit extends Cubit<CartState> {
 
     emit(CartUpdated(cartItems));
   }
+
+  double calculateTotalPrice() {
+    double totalPrice = 0.0;
+    for (var item in cartItems.cartItems) {
+      totalPrice += item.totalPrice;
+    }
+    return totalPrice;
+  }
+
+  void removeCart(CartEntity cart) {
+    cartItems = cartItems.removeItem(cart.product);
+    emit(CartUpdated(cartItems));
+  }
 }

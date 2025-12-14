@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
+import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
+import 'package:fruits_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_app/features/home/presentation/widgets/cart_item_list_view.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
 class CartViewBody extends StatelessWidget {
-  const CartViewBody({super.key});
-
+  const CartViewBody({
+    super.key,
+    required this.cartItems,
+    required this.itemCount,
+  });
+  final List<CartEntity> cartItems;
+  final int itemCount;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -20,15 +28,15 @@ class CartViewBody extends StatelessWidget {
               color: const Color(0xffEBF9F1),
               child: Center(
                 child: Text(
-                  "${S.of(context).have} 3 ${S.of(context).itemsInCart} ${S.of(context).cart}",
+                  "${S.of(context).have} $itemCount ${S.of(context).itemsInCart} ${S.of(context).cart}",
                   style: AppTextStyles.medium15(AppColors.primaryColor),
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.all(12),
-                child: CartItemsListView(cartEntity: []),
+                padding: const EdgeInsets.all(12),
+                child: CartItemsListView(cartEntity: cartItems),
               ),
             ),
           ],
@@ -40,7 +48,8 @@ class CartViewBody extends StatelessWidget {
 
           child: CustomElevetedButton(
             onPressed: () {},
-            text: S.of(context).pay,
+            text:
+                "${S.of(context).pay} ${context.watch<CartCubit>().calculateTotalPrice()} ${S.of(context).pound}",
           ),
         ),
       ],

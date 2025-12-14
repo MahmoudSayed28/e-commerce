@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_app/features/home/presentation/views/cart_view.dart';
 import 'package:fruits_app/features/home/presentation/views/home_view.dart';
 import 'package:fruits_app/features/home/presentation/views/products_view.dart';
@@ -37,19 +39,22 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        //  onPageChanged: (index) => setState(() => _selectedIndex = index),
-        children: views,
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() => _selectedIndex = index);
-          _pageController.jumpToPage(index);
-        },
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: Scaffold(
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          //  onPageChanged: (index) => setState(() => _selectedIndex = index),
+          children: views,
+        ),
+        bottomNavigationBar: CustomBottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() => _selectedIndex = index);
+            _pageController.jumpToPage(index);
+          },
+        ),
       ),
     );
   }

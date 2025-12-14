@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/entities/product_entity.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
+import 'package:fruits_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_app/generated/l10n.dart';
 
 class ProductCard extends StatelessWidget {
@@ -57,7 +59,9 @@ class ProductCard extends StatelessWidget {
                       style: AppTextStyles.bold13(AppColors.secondaryColor),
                     ),
                     trailing: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.read<CartCubit>().addProductToCart(product);
+                      },
                       child: const CircleAvatar(
                         backgroundColor: AppColors.primaryColor,
                         child: Icon(Icons.add, color: Colors.white),
