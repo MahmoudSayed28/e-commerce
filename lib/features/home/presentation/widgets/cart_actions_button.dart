@@ -1,41 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
+import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
+import 'package:fruits_app/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class CartItemActionButtons extends StatelessWidget {
-  const CartItemActionButtons({
-    super.key,
-    required this.incrementQuantity,
-    required this.decrementQuantity,
-    required this.quantity,
-  });
-  final void Function() incrementQuantity, decrementQuantity;
-  final int quantity;
+  const CartItemActionButtons({super.key, required this.cartEntity});
+  final CartEntity cartEntity;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CartItemActionButton(
-          iconColor: Colors.white,
-          icon: Icons.add,
-          color: AppColors.primaryColor,
-          onPressed: incrementQuantity,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            quantity.toString(),
-            textAlign: TextAlign.center,
-            style: AppTextStyles.bold16(null),
-          ),
-        ),
-        CartItemActionButton(
-          iconColor: Colors.grey,
-          icon: Icons.remove,
-          color: const Color(0xFFF3F5F7),
-          onPressed: decrementQuantity,
-        ),
-      ],
+    return BlocBuilder<CartItemCubit, CartItemState>(
+      builder: (context, state) {
+        return Row(
+          children: [
+            CartItemActionButton(
+              iconColor: Colors.white,
+              icon: Icons.add,
+              color: AppColors.primaryColor,
+              onPressed: () {
+                cartEntity.increasCount();
+                context.read<CartItemCubit>().cartItemUpdated(cartEntity);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                cartEntity.quantity.toString(),
+                textAlign: TextAlign.center,
+                style: AppTextStyles.bold16(null),
+              ),
+            ),
+            CartItemActionButton(
+              iconColor: Colors.grey,
+              icon: Icons.remove,
+              color: const Color(0xFFF3F5F7),
+              onPressed: () {
+                cartEntity.decreasCount();
+                context.read<CartItemCubit>().cartItemUpdated(cartEntity);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
