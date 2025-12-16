@@ -7,6 +7,7 @@ import 'package:fruits_app/core/helper/custom_observer.dart';
 import 'package:fruits_app/core/helper/route_method.dart';
 import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/theme_manager.dart';
+import 'package:fruits_app/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_app/firebase_options.dart';
 import 'package:fruits_app/main_layout.dart';
 import 'generated/l10n.dart';
@@ -26,7 +27,7 @@ class FruitsHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MainLayout(),
+      home: const CheckoutView(),
       theme: getApplicationTheme(),
       locale: const Locale('ar'),
       localizationsDelegates: const [

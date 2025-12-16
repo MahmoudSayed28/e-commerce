@@ -61,6 +61,12 @@
   "unit":"kg",
   "pay":"Pay",
   "addedToCart": "Added to cart:",
-  "removedFromCart": "Removed from cart:"
+  "removedFromCart": "Removed from cart:",
+  "shipping": "Shipping",
+  "checkout": "Checkout",
+  "address": "Address",
+  "review": "Review",
+  "payment":"Payment",
+  "next":"Next"
   }
   

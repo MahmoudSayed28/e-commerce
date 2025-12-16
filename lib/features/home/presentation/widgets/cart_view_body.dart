@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/colors_manager.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
+import 'package:fruits_app/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
 import 'package:fruits_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruits_app/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
@@ -44,12 +45,15 @@ class CartViewBody extends StatelessWidget {
               ),
             ],
           ),
-          const Positioned(
-            left: 12,
-            right: 12,
-            bottom: 20,
+          Visibility(
+            visible: cartItems.isNotEmpty,
+            child: const Positioned(
+              left: 12,
+              right: 12,
+              bottom: 20,
 
-            child: CustomCartButton(),
+              child: CustomCartButton(),
+            ),
           ),
         ],
       ),
@@ -65,7 +69,9 @@ class CustomCartButton extends StatelessWidget {
     return BlocBuilder<CartItemCubit, CartItemState>(
       builder: (context, state) {
         return CustomElevetedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, CheckoutView.id);
+          },
           text:
               "${S.of(context).pay} ${context.watch<CartCubit>().calculateTotalPrice()} ${S.of(context).pound}",
         );

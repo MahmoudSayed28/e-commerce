@@ -59,8 +59,12 @@
   "unit":"كج",
   "pay":"ادفع",
   "addedToCart": "تمت الإضافة إلى السلة:",
-  "removedFromCart": "تم الحذف من السلة:"
-
-
+  "removedFromCart": "تم الحذف من السلة:",
+  "shipping": "الشحن",
+  "checkout": "الدفع",
+  "address": "العنوان",
+  "review": "المراجعة",
+  "payment": "الدفع",
+  "next":"التالي"
 
 }
