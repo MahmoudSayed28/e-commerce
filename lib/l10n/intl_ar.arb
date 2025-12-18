@@ -65,6 +65,9 @@
   "address": "العنوان",
   "review": "المراجعة",
   "payment": "الدفع",
-  "next":"التالي"
-
+  "next":"التالي",
+  "cashOnDelivery": "الدفع عند الاستلام",
+  "deliveryFromPlace": "التسليم من المكان",
+  "payOnline": "ادفع اونلاين",
+  "selectPaymentMethod": "يرجى تحديد طريقة الدفع"
 }

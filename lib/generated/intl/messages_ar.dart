@@ -38,8 +38,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "حدث خطأ ما، حاول مرة أخرى",
     ),
     "cart": MessageLookupByLibrary.simpleMessage("سلة التسوق"),
+    "cashOnDelivery": MessageLookupByLibrary.simpleMessage(
+      "الدفع عند الاستلام",
+    ),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
+    "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
+      "التسليم من المكان",
+    ),
     "discount": MessageLookupByLibrary.simpleMessage("%25 خصم"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
@@ -88,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
     "pay": MessageLookupByLibrary.simpleMessage("ادفع"),
+    "payOnline": MessageLookupByLibrary.simpleMessage("ادفع اونلاين"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
     "pound": MessageLookupByLibrary.simpleMessage("جنيه"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
@@ -100,6 +107,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "results": MessageLookupByLibrary.simpleMessage("النتائج"),
     "review": MessageLookupByLibrary.simpleMessage("المراجعة"),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن ..."),
+    "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "يرجى تحديد طريقة الدفع",
+    ),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن"),
     "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الآن"),
     "skip": MessageLookupByLibrary.simpleMessage("تخط"),

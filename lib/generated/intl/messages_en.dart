@@ -36,8 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "there is an error try later",
     ),
     "cart": MessageLookupByLibrary.simpleMessage("Shopping Cart"),
+    "cashOnDelivery": MessageLookupByLibrary.simpleMessage("Cash on Delivery"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create an account"),
+    "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
+      "Delivery from location",
+    ),
     "discount": MessageLookupByLibrary.simpleMessage("25% OFF"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
@@ -92,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Password must contain at least one uppercase letter",
     ),
     "pay": MessageLookupByLibrary.simpleMessage("Pay"),
+    "payOnline": MessageLookupByLibrary.simpleMessage("Pay Online"),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
     "pound": MessageLookupByLibrary.simpleMessage("pounds"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
@@ -104,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "results": MessageLookupByLibrary.simpleMessage("Results"),
     "review": MessageLookupByLibrary.simpleMessage("Review"),
     "search": MessageLookupByLibrary.simpleMessage("Search..."),
+    "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "Please select payment method",
+    ),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping"),
     "shopNow": MessageLookupByLibrary.simpleMessage("Shop Now"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),

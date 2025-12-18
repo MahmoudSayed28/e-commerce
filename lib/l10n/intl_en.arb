@@ -67,6 +67,10 @@
   "address": "Address",
   "review": "Review",
   "payment":"Payment",
-  "next":"Next"
+  "next":"Next",
+  "cashOnDelivery": "Cash on Delivery",
+  "deliveryFromPlace": "Delivery from location",
+  "payOnline": "Pay Online",
+  "selectPaymentMethod": "Please select payment method"
   }
   

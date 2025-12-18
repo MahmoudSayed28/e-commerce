@@ -52,7 +52,15 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
           ),
           Expanded(child: CheckoutPageView(pageController: pageController)),
-          CustomElevetedButton(text: S.of(context).next, onPressed: () {}),
+          CustomElevetedButton(
+            text: S.of(context).next,
+            onPressed: () {
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            },
+          ),
         ],
       ),
     );
