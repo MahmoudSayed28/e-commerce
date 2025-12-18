@@ -7,18 +7,21 @@ class CustemTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.onChanged,
+    this.keyboardType,
   });
   final String hintText;
+  final TextInputType? keyboardType;
   final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       onChanged: onChanged,
       validator: (value) => value!.isEmpty ? S.of(context).required : null,
       style: AppTextStyles.semiBold16(null),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: AppTextStyles.semiBold16(null),
+        hintStyle: AppTextStyles.bold13(const Color(0xff949D9E)),
         filled: true,
         fillColor: const Color(0xffF9FAFA),
         border: outlineInputBorder(),

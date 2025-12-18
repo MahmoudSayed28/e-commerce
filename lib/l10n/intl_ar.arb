@@ -69,5 +69,10 @@
   "cashOnDelivery": "الدفع عند الاستلام",
   "deliveryFromPlace": "التسليم من المكان",
   "payOnline": "ادفع اونلاين",
-  "selectPaymentMethod": "يرجى تحديد طريقة الدفع"
+  "selectPaymentMethod": "يرجى تحديد طريقة الدفع",
+   "city":"المدينة",
+  "phoneNumber":"رقم الهاتف",
+  "floorNumber": "رقم الطابق",
+  "apartmentNumber": "رقم الشقة",
+  "saveAddress": "حفظ العنوان"
 }

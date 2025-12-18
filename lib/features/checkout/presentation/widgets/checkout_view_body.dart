@@ -31,7 +31,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       return [
         S.of(context).shipping,
         S.of(context).address,
-        S.of(context).payment,
         S.of(context).review,
       ];
     }

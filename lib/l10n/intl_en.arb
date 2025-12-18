@@ -71,6 +71,11 @@
   "cashOnDelivery": "Cash on Delivery",
   "deliveryFromPlace": "Delivery from location",
   "payOnline": "Pay Online",
-  "selectPaymentMethod": "Please select payment method"
+  "selectPaymentMethod": "Please select payment method",
+  "city":"City",
+  "phoneNumber":"Phone Number",
+  "floorNumber": "Floor number",
+  "apartmentNumber": "Apartment number",
+  "saveAddress": "Save Address"
   }
   

@@ -19,9 +19,11 @@ class InactiveStep extends StatelessWidget {
           child: Text(stepNumber, style: AppTextStyles.semiBold13(null)),
         ),
         const SizedBox(width: 4),
-        Text(
-          stepTitle,
-          style: AppTextStyles.semiBold13(const Color(0xffAAAAAA)),
+        FittedBox(
+          child: Text(
+            stepTitle,
+            style: AppTextStyles.semiBold13(const Color(0xffAAAAAA)),
+          ),
         ),
       ],
     );

@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "تمت الإضافة إلى السلة:",
     ),
     "address": MessageLookupByLibrary.simpleMessage("العنوان"),
+    "apartmentNumber": MessageLookupByLibrary.simpleMessage("رقم الشقة"),
     "appleLogin": MessageLookupByLibrary.simpleMessage("تسجيل بواسطة أبل"),
     "authError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما، حاول مرة أخرى",
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الدفع عند الاستلام",
     ),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "city": MessageLookupByLibrary.simpleMessage("المدينة"),
     "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
     "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
       "التسليم من المكان",
@@ -54,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "facebookLogin": MessageLookupByLibrary.simpleMessage(
       "تسجيل بواسطة فيسبوك",
     ),
+    "floorNumber": MessageLookupByLibrary.simpleMessage("رقم الطابق"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
     "fruit": MessageLookupByLibrary.simpleMessage("فاكهة"),
     "fruit_intro_subtitle2": MessageLookupByLibrary.simpleMessage(
@@ -96,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pay": MessageLookupByLibrary.simpleMessage("ادفع"),
     "payOnline": MessageLookupByLibrary.simpleMessage("ادفع اونلاين"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "pound": MessageLookupByLibrary.simpleMessage("جنيه"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" جنيه / الكيلو"),
     "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
@@ -106,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "results": MessageLookupByLibrary.simpleMessage("النتائج"),
     "review": MessageLookupByLibrary.simpleMessage("المراجعة"),
+    "saveAddress": MessageLookupByLibrary.simpleMessage("حفظ العنوان"),
     "search": MessageLookupByLibrary.simpleMessage("ابحث عن ..."),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "يرجى تحديد طريقة الدفع",

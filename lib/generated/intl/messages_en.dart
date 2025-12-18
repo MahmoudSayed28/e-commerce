@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "addedToCart": MessageLookupByLibrary.simpleMessage("Added to cart:"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
+    "apartmentNumber": MessageLookupByLibrary.simpleMessage("Apartment number"),
     "appleLogin": MessageLookupByLibrary.simpleMessage("Continue with Apple"),
     "authError": MessageLookupByLibrary.simpleMessage(
       "there is an error try later",
@@ -38,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cart": MessageLookupByLibrary.simpleMessage("Shopping Cart"),
     "cashOnDelivery": MessageLookupByLibrary.simpleMessage("Cash on Delivery"),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
+    "city": MessageLookupByLibrary.simpleMessage("City"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create an account"),
     "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
       "Delivery from location",
@@ -50,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "facebookLogin": MessageLookupByLibrary.simpleMessage(
       "Continue with Facebook",
     ),
+    "floorNumber": MessageLookupByLibrary.simpleMessage("Floor number"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forget Password?"),
     "fruit": MessageLookupByLibrary.simpleMessage("Fruit"),
     "fruit_intro_subtitle2": MessageLookupByLibrary.simpleMessage(
@@ -98,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pay": MessageLookupByLibrary.simpleMessage("Pay"),
     "payOnline": MessageLookupByLibrary.simpleMessage("Pay Online"),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pound": MessageLookupByLibrary.simpleMessage("pounds"),
     "pricePerKilo": MessageLookupByLibrary.simpleMessage(" EGP / kilo"),
     "products": MessageLookupByLibrary.simpleMessage("Products"),
@@ -108,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
     "results": MessageLookupByLibrary.simpleMessage("Results"),
     "review": MessageLookupByLibrary.simpleMessage("Review"),
+    "saveAddress": MessageLookupByLibrary.simpleMessage("Save Address"),
     "search": MessageLookupByLibrary.simpleMessage("Search..."),
     "selectPaymentMethod": MessageLookupByLibrary.simpleMessage(
       "Please select payment method",
