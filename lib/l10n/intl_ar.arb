@@ -74,5 +74,11 @@
   "phoneNumber":"رقم الهاتف",
   "floorNumber": "رقم الطابق",
   "apartmentNumber": "رقم الشقة",
-  "saveAddress": "حفظ العنوان"
+  "saveAddress": "حفظ العنوان",
+  "edit":"تعديل",
+  "shippingAddress":"عنوان التوصيل",
+   "orderSummary": "ملخص الطلب",
+  "subtotal": "المجموع الفرعي : ",
+  "delivery":  "التوصيل : ",
+  "total": "الإجمالي"
 }

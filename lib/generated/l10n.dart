@@ -624,6 +624,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
+  }
+
+  /// `Shipping Address`
+  String get shippingAddress {
+    return Intl.message(
+      'Shipping Address',
+      name: 'shippingAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Summary`
+  String get orderSummary {
+    return Intl.message(
+      'Order Summary',
+      name: 'orderSummary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subtotal : `
+  String get subtotal {
+    return Intl.message('Subtotal : ', name: 'subtotal', desc: '', args: []);
+  }
+
+  /// `Delivery :`
+  String get delivery {
+    return Intl.message('Delivery :', name: 'delivery', desc: '', args: []);
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message('Total', name: 'total', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

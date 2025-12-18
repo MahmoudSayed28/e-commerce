@@ -45,10 +45,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "city": MessageLookupByLibrary.simpleMessage("المدينة"),
     "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
+    "delivery": MessageLookupByLibrary.simpleMessage("التوصيل : "),
     "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
       "التسليم من المكان",
     ),
     "discount": MessageLookupByLibrary.simpleMessage("%25 خصم"),
+    "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
       "لا تقلق، ما عليك سوى كتابة بريدك الإلكتروني وسنرسل لك رمز التحقق.",
@@ -86,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "offer": MessageLookupByLibrary.simpleMessage("عرض"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(
       "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
@@ -116,10 +119,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "يرجى تحديد طريقة الدفع",
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن"),
+    "shippingAddress": MessageLookupByLibrary.simpleMessage("عنوان التوصيل"),
     "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الآن"),
     "skip": MessageLookupByLibrary.simpleMessage("تخط"),
     "start": MessageLookupByLibrary.simpleMessage("ابدأ الان"),
     "strawberry": MessageLookupByLibrary.simpleMessage("فراولة"),
+    "subtotal": MessageLookupByLibrary.simpleMessage("المجموع الفرعي : "),
     "termsAgreement": MessageLookupByLibrary.simpleMessage(
       " من خلال إنشاء حساب، فإنك توافق على ",
     ),
@@ -127,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الشروط والأحكام الخاصة بنا",
     ),
     "theCart": MessageLookupByLibrary.simpleMessage("السلة"),
+    "total": MessageLookupByLibrary.simpleMessage("الإجمالي"),
     "unit": MessageLookupByLibrary.simpleMessage("كج"),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "لا يوجد مستخدم بهذا البريد الإلكتروني",

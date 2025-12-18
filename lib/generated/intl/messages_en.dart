@@ -41,10 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "city": MessageLookupByLibrary.simpleMessage("City"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create an account"),
+    "delivery": MessageLookupByLibrary.simpleMessage("Delivery :"),
     "deliveryFromPlace": MessageLookupByLibrary.simpleMessage(
       "Delivery from location",
     ),
     "discount": MessageLookupByLibrary.simpleMessage("25% OFF"),
+    "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailVerification": MessageLookupByLibrary.simpleMessage(
       "Don\'t worry, just enter your email address and we\'ll send you a verification code.",
@@ -88,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "next": MessageLookupByLibrary.simpleMessage("Next"),
     "offer": MessageLookupByLibrary.simpleMessage("Offer"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
+    "orderSummary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 8 characters long",
@@ -118,10 +121,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please select payment method",
     ),
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping"),
+    "shippingAddress": MessageLookupByLibrary.simpleMessage("Shipping Address"),
     "shopNow": MessageLookupByLibrary.simpleMessage("Shop Now"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "start": MessageLookupByLibrary.simpleMessage("Start Now"),
     "strawberry": MessageLookupByLibrary.simpleMessage("Strawberry"),
+    "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal : "),
     "termsAgreement": MessageLookupByLibrary.simpleMessage(
       "By creating an account, you agree to ",
     ),
@@ -129,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Our Terms and Conditions",
     ),
     "theCart": MessageLookupByLibrary.simpleMessage("Cart"),
+    "total": MessageLookupByLibrary.simpleMessage("Total"),
     "unit": MessageLookupByLibrary.simpleMessage("kg"),
     "userNotFound": MessageLookupByLibrary.simpleMessage(
       "No user found for that email.",

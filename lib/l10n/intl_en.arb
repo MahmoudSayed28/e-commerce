@@ -76,6 +76,12 @@
   "phoneNumber":"Phone Number",
   "floorNumber": "Floor number",
   "apartmentNumber": "Apartment number",
-  "saveAddress": "Save Address"
+  "saveAddress": "Save Address",
+  "edit":"Edit",
+  "shippingAddress":"Shipping Address",
+  "orderSummary": "Order Summary",
+  "subtotal": "Subtotal : ",
+  "delivery": "Delivery :",
+  "total": "Total"
   }
   

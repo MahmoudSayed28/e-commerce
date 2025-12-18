@@ -13,9 +13,16 @@ class CheckoutViewBody extends StatefulWidget {
 
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController pageController;
+  int currentIndex = 0;
+
   @override
   void initState() {
     pageController = PageController();
+    pageController.addListener(() {
+      setState(() {
+        currentIndex = pageController.page!.toInt();
+      });
+    });
     super.initState();
   }
 
@@ -46,7 +53,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               (index) => StepItem(
                 stepTitle: steps()[index],
                 stepNumber: (index + 1).toString(),
-                isActive: true,
+                isActive: index <= currentIndex,
               ),
             ),
           ),
