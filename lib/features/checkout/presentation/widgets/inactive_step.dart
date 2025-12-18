@@ -18,7 +18,7 @@ class InactiveStep extends StatelessWidget {
           backgroundColor: AppColors.cardColor,
           child: Text(stepNumber, style: AppTextStyles.semiBold13(null)),
         ),
-        const SizedBox(width: 4),
+        const SizedBox(width: 6),
         FittedBox(
           child: Text(
             stepTitle,

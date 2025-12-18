@@ -50,10 +50,18 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
               steps().length,
-              (index) => StepItem(
-                stepTitle: steps()[index],
-                stepNumber: (index + 1).toString(),
-                isActive: index <= currentIndex,
+              (index) => GestureDetector(
+                onTap:
+                    () => pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.fastOutSlowIn,
+                    ),
+                child: StepItem(
+                  stepTitle: steps()[index],
+                  stepNumber: (index + 1).toString(),
+                  isActive: index <= currentIndex,
+                ),
               ),
             ),
           ),
