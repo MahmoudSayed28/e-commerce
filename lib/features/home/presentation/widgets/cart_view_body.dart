@@ -47,12 +47,12 @@ class CartViewBody extends StatelessWidget {
           ),
           Visibility(
             visible: cartItems.isNotEmpty,
-            child: const Positioned(
+            child: Positioned(
               left: 12,
               right: 12,
               bottom: 20,
 
-              child: CustomCartButton(),
+              child: CustomCartButton(cartItems: cartItems),
             ),
           ),
         ],
@@ -62,15 +62,15 @@ class CartViewBody extends StatelessWidget {
 }
 
 class CustomCartButton extends StatelessWidget {
-  const CustomCartButton({super.key});
-
+  const CustomCartButton({super.key, required this.cartItems});
+  final List<CartEntity> cartItems;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartItemCubit, CartItemState>(
       builder: (context, state) {
         return CustomElevetedButton(
           onPressed: () {
-            Navigator.pushNamed(context, CheckoutView.id);
+            Navigator.pushNamed(context, CheckoutView.id, arguments: cartItems);
           },
           text:
               "${S.of(context).pay} ${context.watch<CartCubit>().calculateTotalPrice()} ${S.of(context).pound}",
