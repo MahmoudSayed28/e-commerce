@@ -4,7 +4,6 @@ import 'package:fruits_app/features/auth/presentation/views/login_view.dart';
 import 'package:fruits_app/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_app/features/entery/presentation/views/onboarding_view.dart';
 import 'package:fruits_app/features/entery/presentation/views/splash_view.dart';
-import 'package:fruits_app/features/home/domain/entity/cart_entity.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity_list.dart';
 
 import '../../features/auth/presentation/views/register_view.dart';

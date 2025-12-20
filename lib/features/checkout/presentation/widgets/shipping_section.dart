@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_app/features/checkout/domain/order_entity.dart';
 
 import 'package:fruits_app/features/checkout/presentation/widgets/shipping_payment_method.dart';
 import 'package:fruits_app/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class ShippingSection extends StatefulWidget {
   const ShippingSection({super.key});
@@ -21,7 +23,13 @@ class _ShippingSectionState extends State<ShippingSection> {
           ShippingPaymentMethod(
             title: S.of(context).cashOnDelivery,
             subTitle: S.of(context).deliveryFromPlace,
-            price: "40",
+            price:
+                (context
+                            .read<OrderEntity>()
+                            .cartItemList
+                            .calculateTotalPrice() +
+                        40)
+                    .toString(),
             isSelected: selectedIndex == 0,
             onTap: () {
               setState(() {
@@ -33,7 +41,12 @@ class _ShippingSectionState extends State<ShippingSection> {
           ShippingPaymentMethod(
             title: S.of(context).payOnline,
             subTitle: S.of(context).selectPaymentMethod,
-            price: "40",
+            price:
+                context
+                    .read<OrderEntity>()
+                    .cartItemList
+                    .calculateTotalPrice()
+                    .toString(),
             isSelected: selectedIndex == 1,
             onTap: () {
               setState(() {

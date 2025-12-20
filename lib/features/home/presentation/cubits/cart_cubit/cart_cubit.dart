@@ -16,7 +16,7 @@ class CartCubit extends Cubit<CartState> {
     final existingItem = cartItems.findItem(product);
 
     if (existingItem != null) {
-      existingItem.increasCount(); // بيعدّل نفس الكائن
+      existingItem.increasCount();
       cartItems = CartEntityList(cartItems: List.from(cartItems.cartItems));
     } else {
       cartItems = cartItems.addItem(CartEntity(product: product, quantity: 1));

@@ -36,4 +36,12 @@ class CartEntityList {
       cartItems: cartItems.where((item) => item.product != product).toList(),
     );
   }
+
+  double calculateTotalPrice() {
+    double totalPrice = 0.0;
+    for (var item in cartItems) {
+      totalPrice += item.totalPrice;
+    }
+    return totalPrice;
+  }
 }
