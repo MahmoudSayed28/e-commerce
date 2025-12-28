@@ -15,7 +15,11 @@ class CheckoutViewBody extends StatefulWidget {
 }
 
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late PageController pageController;
+  ValueNotifier<AutovalidateMode> autovalidateModeNotifier = ValueNotifier(
+    AutovalidateMode.disabled,
+  );
   int currentIndex = 0;
   @override
   void initState() {
@@ -31,6 +35,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void dispose() {
     pageController.dispose();
+    autovalidateModeNotifier.dispose();
     super.dispose();
   }
 
@@ -69,25 +74,48 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               ),
             ),
           ),
-          Expanded(child: CheckoutPageView(pageController: pageController)),
+          Expanded(
+            child: CheckoutPageView(
+              pageController: pageController,
+              formKey: formKey,
+              autovalidateModeNotifier: autovalidateModeNotifier,
+            ),
+          ),
           CustomElevetedButton(
             text: S.of(context).next,
             onPressed: () {
-              if (orderProvider.payWithCash != null) {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOut,
-                );
-              } else {
-                showCustomSnackBar(
-                  context,
-                  message: S.of(context).selectPaymentMethod,
-                );
+              if (currentIndex == 0) {
+                _handleShippingSection(orderProvider, context);
+              } else if (currentIndex == 1) {
+                _handleAdderssSection();
               }
             },
           ),
         ],
       ),
     );
+  }
+
+  void _handleAdderssSection() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      autovalidateModeNotifier.value = AutovalidateMode.always;
+    }
+  }
+
+  void _handleShippingSection(OrderEntity orderProvider, BuildContext context) {
+    if (orderProvider.payWithCash != null) {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      showCustomSnackBar(context, message: S.of(context).selectPaymentMethod);
+    }
   }
 }
