@@ -7,16 +7,20 @@ class CheckoutPageView extends StatelessWidget {
   const CheckoutPageView({
     super.key,
     required this.pageController,
-    required this.formKey, required this.autovalidateModeNotifier,
+    required this.formKey,
+    required this.autovalidateModeNotifier,
   });
   final GlobalKey<FormState> formKey;
   final PageController pageController;
-final ValueNotifier<AutovalidateMode> autovalidateModeNotifier;
+  final ValueNotifier<AutovalidateMode> autovalidateModeNotifier;
   @override
   Widget build(BuildContext context) {
     List<Widget> sections = [
       const ShippingSection(),
-      AddresSection(formKey: formKey,autovalidateModeNotifier:autovalidateModeNotifier ,),
+      AddresSection(
+        formKey: formKey,
+        autovalidateModeNotifier: autovalidateModeNotifier,
+      ),
       const ReviewSection(),
     ];
     return PageView.builder(

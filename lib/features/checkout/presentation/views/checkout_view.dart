@@ -17,8 +17,11 @@ class CheckoutView extends StatelessWidget {
         title: Text(S.of(context).shipping, style: AppTextStyles.bold19(null)),
         centerTitle: true,
       ),
-      body: Provider.value(
-        value: OrderEntity(cartItemList: cartItems),
+      body: ChangeNotifierProvider(
+        create:
+            (context) => OrderEntity(
+              cartItemList: cartItems,
+            ),
         child: const CheckoutViewBody(),
       ),
     );
