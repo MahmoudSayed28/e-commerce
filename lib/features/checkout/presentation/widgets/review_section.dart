@@ -3,17 +3,18 @@ import 'package:fruits_app/features/checkout/presentation/widgets/order_summary.
 import 'package:fruits_app/features/checkout/presentation/widgets/shipping_address_widget.dart';
 
 class ReviewSection extends StatelessWidget {
-  const ReviewSection({super.key});
+  const ReviewSection({super.key, required this.pageController});
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return  SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 24),
-          OrderSummryWidget(),
-          SizedBox(height: 16),
-          ShippingAddressWidget(),
+          const SizedBox(height: 24),
+          const OrderSummryWidget(),
+          const SizedBox(height: 16),
+          ShippingAddressWidget(pageController: pageController,),
         ],
       ),
     );

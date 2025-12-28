@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
+import 'package:fruits_app/features/checkout/domain/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/payment_summary_widget.dart';
 import 'package:fruits_app/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class OrderSummryWidget extends StatelessWidget {
   const OrderSummryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<OrderEntity>();
     return PaymentSummaryWidget(
       title: S.of(context).orderSummary,
       child: Column(
@@ -20,7 +23,7 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '150 ${S.of(context).pound}',
+                '${provider.cartItemList.calculateTotalPrice()} ${S.of(context).pound}',
                 textAlign: TextAlign.right,
                 style: AppTextStyles.semiBold16(null),
               ),
@@ -49,7 +52,7 @@ class OrderSummryWidget extends StatelessWidget {
               Text(S.of(context).total, style: AppTextStyles.bold16(null)),
               const Spacer(),
               Text(
-                '180 ${S.of(context).pound}',
+                '${provider.cartItemList.calculateTotalPrice() + 30} ${S.of(context).pound}',
                 style: AppTextStyles.bold16(null),
               ),
             ],

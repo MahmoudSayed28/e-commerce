@@ -21,7 +21,7 @@ class CheckoutPageView extends StatelessWidget {
         formKey: formKey,
         autovalidateModeNotifier: autovalidateModeNotifier,
       ),
-      const ReviewSection(),
+       ReviewSection(pageController: pageController,),
     ];
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
