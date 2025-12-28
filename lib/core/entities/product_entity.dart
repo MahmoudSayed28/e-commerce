@@ -6,8 +6,8 @@ import 'package:fruits_app/core/entities/review_entity.dart';
 class ProductEntity extends Equatable {
   final String name;
   final String code;
-  String? imageUrl;
-  File? image;
+  final String? imageUrl;
+  final File? image;
   final String description;
   final num price;
   final bool isSpecial;
@@ -18,7 +18,7 @@ class ProductEntity extends Equatable {
   final num ratingCount = 0;
   final int unitAmount;
   final List<ReviewEntity> reviews;
-  ProductEntity({
+  const ProductEntity({
     required this.name,
     required this.code,
     this.imageUrl,

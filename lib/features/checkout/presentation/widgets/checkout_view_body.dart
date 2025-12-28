@@ -60,12 +60,30 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             children: List.generate(
               steps().length,
               (index) => GestureDetector(
-                onTap:
-                    () => pageController.animateToPage(
+                onTap: () {
+                  bool canNavigate = true;
+
+                  if (index > currentIndex) {
+                    if (currentIndex == 0) {
+                      _handleShippingSection(orderProvider, context);
+                      canNavigate = orderProvider.payWithCash != null;
+                    } else if (currentIndex == 1) {
+                      canNavigate = formKey.currentState!.validate();
+                      if (!canNavigate) {
+                        autovalidateModeNotifier.value =
+                            AutovalidateMode.always;
+                      }
+                    }
+                  }
+
+                  if (canNavigate) {
+                    pageController.animateToPage(
                       index,
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.fastOutSlowIn,
-                    ),
+                    );
+                  }
+                },
                 child: StepItem(
                   stepTitle: steps()[index],
                   stepNumber: (index + 1).toString(),

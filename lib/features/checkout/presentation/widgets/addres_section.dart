@@ -7,9 +7,13 @@ import 'package:fruits_app/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class AddresSection extends StatefulWidget {
-  const AddresSection({super.key, required this.formKey, required this.autovalidateModeNotifier});
+  const AddresSection({
+    super.key,
+    required this.formKey,
+    required this.autovalidateModeNotifier,
+  });
   final GlobalKey<FormState> formKey;
- final ValueNotifier<AutovalidateMode> autovalidateModeNotifier;
+  final ValueNotifier<AutovalidateMode> autovalidateModeNotifier;
   @override
   State<AddresSection> createState() => _AddresSectionState();
 }
@@ -29,7 +33,7 @@ class _AddresSectionState extends State<AddresSection> {
           valueListenable: widget.autovalidateModeNotifier,
           builder: (context, value, child) {
             return Form(
-                 autovalidateMode: value,
+              autovalidateMode: value,
               key: widget.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +41,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 24),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.name = value;
+                      provider.shippingEntity.name = value;
                     },
                     hintText: S.of(context).fullName,
                     keyboardType: TextInputType.name,
@@ -45,7 +49,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 12),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.email = value;
+                      provider.shippingEntity.email = value;
                     },
                     hintText: S.of(context).email,
                     keyboardType: TextInputType.emailAddress,
@@ -53,7 +57,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 12),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.address = value;
+                      provider.shippingEntity.address = value;
                     },
                     hintText: S.of(context).address,
                     keyboardType: TextInputType.text,
@@ -61,7 +65,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 12),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.city = value;
+                      provider.shippingEntity.city = value;
                     },
                     hintText: S.of(context).city,
                     keyboardType: TextInputType.name,
@@ -69,7 +73,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 12),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.addressDetails = value;
+                      provider.shippingEntity.addressDetails = value;
                     },
                     hintText:
                         "${S.of(context).floorNumber}, ${S.of(context).apartmentNumber}",
@@ -78,7 +82,7 @@ class _AddresSectionState extends State<AddresSection> {
                   const SizedBox(height: 12),
                   CustemTextFormField(
                     onChanged: (value) {
-                      provider.shippingEntity!.phone = value;
+                      provider.shippingEntity.phone = value;
                     },
                     hintText: S.of(context).phoneNumber,
                     keyboardType: TextInputType.number,
@@ -99,7 +103,7 @@ class _AddresSectionState extends State<AddresSection> {
                 ],
               ),
             );
-          }
+          },
         ),
       ),
     );
