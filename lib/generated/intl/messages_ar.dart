@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "offer": MessageLookupByLibrary.simpleMessage("عرض"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "orderNow": MessageLookupByLibrary.simpleMessage("اطلب الآن"),
     "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(
@@ -100,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
     ),
     "pay": MessageLookupByLibrary.simpleMessage("ادفع"),
+    "payNow": MessageLookupByLibrary.simpleMessage("ادفع الآن"),
     "payOnline": MessageLookupByLibrary.simpleMessage("ادفع اونلاين"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),

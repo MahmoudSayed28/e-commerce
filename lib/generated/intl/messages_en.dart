@@ -90,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "next": MessageLookupByLibrary.simpleMessage("Next"),
     "offer": MessageLookupByLibrary.simpleMessage("Offer"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
+    "orderNow": MessageLookupByLibrary.simpleMessage("Order Now"),
     "orderSummary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(
@@ -102,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Password must contain at least one uppercase letter",
     ),
     "pay": MessageLookupByLibrary.simpleMessage("Pay"),
+    "payNow": MessageLookupByLibrary.simpleMessage("Pay Now"),
     "payOnline": MessageLookupByLibrary.simpleMessage("Pay Online"),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),

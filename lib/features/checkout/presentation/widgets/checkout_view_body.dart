@@ -100,7 +100,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
           ),
           CustomElevetedButton(
-            text: S.of(context).next,
+            text:
+                currentIndex != 2
+                    ? S.of(context).next
+                    : orderProvider.payWithCash == true
+                    ? S.of(context).orderNow
+                    : S.of(context).payNow,
             onPressed: () {
               if (currentIndex == 0) {
                 _handleShippingSection(orderProvider, context);

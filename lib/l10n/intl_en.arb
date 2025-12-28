@@ -82,6 +82,8 @@
   "orderSummary": "Order Summary",
   "subtotal": "Subtotal : ",
   "delivery": "Delivery :",
-  "total": "Total"
+  "total": "Total",
+  "orderNow": "Order Now",
+  "payNow": "Pay Now"
   }
   
