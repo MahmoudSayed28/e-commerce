@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
+import 'package:fruits_app/core/utils/widgets/custom_snak_bar.dart';
+import 'package:fruits_app/features/checkout/domain/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_page_view.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/step_item.dart';
 import 'package:fruits_app/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key});
@@ -14,7 +17,6 @@ class CheckoutViewBody extends StatefulWidget {
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController pageController;
   int currentIndex = 0;
-
   @override
   void initState() {
     pageController = PageController();
@@ -34,6 +36,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = context.read<OrderEntity>();
+
     List<String> steps() {
       return [
         S.of(context).shipping,
@@ -69,10 +73,17 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           CustomElevetedButton(
             text: S.of(context).next,
             onPressed: () {
-              pageController.nextPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
+              if (orderProvider.payWithCash != null) {
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              } else {
+                showCustomSnackBar(
+                  context,
+                  message: S.of(context).selectPaymentMethod,
+                );
+              }
             },
           ),
         ],
