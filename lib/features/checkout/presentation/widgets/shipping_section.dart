@@ -12,8 +12,8 @@ class ShippingSection extends StatefulWidget {
   State<ShippingSection> createState() => _ShippingSectionState();
 }
 
-class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAliveClientMixin {
-  
+class _ShippingSectionState extends State<ShippingSection>
+    with AutomaticKeepAliveClientMixin {
   int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,7 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
             title: S.of(context).cashOnDelivery,
             subTitle: S.of(context).deliveryFromPlace,
             price:
-                (context
-                            .read<OrderEntity>()
-                            .cartItemList
-                            .calculateTotalPrice() +
-                        40)
+                (context.read<OrderEntity>().cartItemList.calculateTotalPrice())
                     .toString(),
             isSelected: selectedIndex == 0,
             onTap: () {
@@ -45,10 +41,11 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
             title: S.of(context).payOnline,
             subTitle: S.of(context).selectPaymentMethod,
             price:
-                context
-                    .read<OrderEntity>()
-                    .cartItemList
-                    .calculateTotalPrice()
+                (context
+                            .read<OrderEntity>()
+                            .cartItemList
+                            .calculateTotalPrice() +
+                        30)
                     .toString(),
             isSelected: selectedIndex == 1,
             onTap: () {
@@ -62,7 +59,7 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
       ),
     );
   }
-  
+
   @override
   bool get wantKeepAlive => true;
 }

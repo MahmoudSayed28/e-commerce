@@ -38,7 +38,9 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '30 ${S.of(context).pound}',
+                provider.payWithCash == true
+                    ? '0 ${S.of(context).pound}'
+                    : '30 ${S.of(context).pound}',
                 textAlign: TextAlign.right,
                 style: AppTextStyles.regular13(const Color(0xFF4E5556)),
               ),
@@ -52,7 +54,9 @@ class OrderSummryWidget extends StatelessWidget {
               Text(S.of(context).total, style: AppTextStyles.bold16(null)),
               const Spacer(),
               Text(
-                '${provider.cartItemList.calculateTotalPrice() + 30} ${S.of(context).pound}',
+                provider.payWithCash == true
+                    ? '${provider.cartItemList.calculateTotalPrice()} ${S.of(context).pound}'
+                    : '${provider.cartItemList.calculateTotalPrice() + 30} ${S.of(context).pound}',
                 style: AppTextStyles.bold16(null),
               ),
             ],
