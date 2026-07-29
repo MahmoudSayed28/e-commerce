@@ -7,6 +7,6 @@ class OrderEntity extends ChangeNotifier {
   final CartEntityList cartItemList;
   ShippingEntity shippingEntity = ShippingEntity();
   bool? payWithCash;
-
-  OrderEntity({required this.cartItemList, this.payWithCash});
+final String uId;
+  OrderEntity({required this.cartItemList, this.payWithCash, required this.uId});
 }

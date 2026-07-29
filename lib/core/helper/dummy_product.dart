@@ -1,7 +1,7 @@
 import 'package:fruits_app/core/entities/product_entity.dart';
 
 ProductEntity getDummyProduct() {
-  return ProductEntity(
+  return const ProductEntity(
     name: 'Apple',
     code: '123',
     description: 'Fresh apple',
