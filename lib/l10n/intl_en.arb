@@ -84,6 +84,7 @@
   "delivery": "Delivery :",
   "total": "Total",
   "orderNow": "Order Now",
-  "payNow": "Pay Now"
+  "payNow": "Pay Now",
+    "orderPlacedSuccessfully": "Order placed successfully"
   }
   

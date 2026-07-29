@@ -673,6 +673,16 @@ class S {
   String get payNow {
     return Intl.message('Pay Now', name: 'payNow', desc: '', args: []);
   }
+
+  /// `Order placed successfully`
+  String get orderPlacedSuccessfully {
+    return Intl.message(
+      'Order placed successfully',
+      name: 'orderPlacedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

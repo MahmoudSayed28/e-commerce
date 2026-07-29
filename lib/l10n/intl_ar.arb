@@ -82,5 +82,6 @@
   "delivery":  "التوصيل : ",
   "total": "الإجمالي",
   "orderNow": "اطلب الآن",
-  "payNow": "ادفع الآن"
+  "payNow": "ادفع الآن",
+  "orderPlacedSuccessfully": "تم تقديم الطلب بنجاح"
 }

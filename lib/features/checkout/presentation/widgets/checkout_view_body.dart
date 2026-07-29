@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
 import 'package:fruits_app/core/utils/widgets/custom_snak_bar.dart';
 import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
+import 'package:fruits_app/features/checkout/presentation/cubits/add_order/add_order_cubit.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_page_view.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/step_item.dart';
 import 'package:fruits_app/generated/l10n.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutViewBody extends StatefulWidget {
@@ -21,6 +24,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     AutovalidateMode.disabled,
   );
   int currentIndex = 0;
+  bool isLoading = false;
   @override
   void initState() {
     pageController = PageController();
@@ -51,71 +55,99 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       ];
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.5, vertical: 12),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              steps().length,
-              (index) => GestureDetector(
-                onTap: () {
-                  bool canNavigate = true;
+    return BlocConsumer<AddOrderCubit, AddOrderState>(
+      listener: (context, state) {
+        if (state is AddOrderSuccess) {
+          isLoading = false;
+          showCustomSnackBar(
+            context,
+            message: S.of(context).orderPlacedSuccessfully,
+            isError: false,
+          );
+          Navigator.pop(context);
+        } else if (state is AddOrderFailure) {
+          isLoading = false;
+          showCustomSnackBar(context, message: state.errorMessage);
+        } else if (state is AddOrderLoading) {
+          isLoading = true;
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isLoading,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.5, vertical: 12),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(
+                    steps().length,
+                    (index) => GestureDetector(
+                      onTap: () {
+                        bool canNavigate = true;
 
-                  if (index > currentIndex) {
+                        if (index > currentIndex) {
+                          if (currentIndex == 0) {
+                            _handleShippingSection(orderProvider, context);
+                            canNavigate = orderProvider.payWithCash != null;
+                          } else if (currentIndex == 1) {
+                            canNavigate = formKey.currentState!.validate();
+                            if (!canNavigate) {
+                              autovalidateModeNotifier.value =
+                                  AutovalidateMode.always;
+                            }
+                          }
+                        }
+
+                        if (canNavigate) {
+                          pageController.animateToPage(
+                            index,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastOutSlowIn,
+                          );
+                        }
+                      },
+                      child: StepItem(
+                        stepTitle: steps()[index],
+                        stepNumber: (index + 1).toString(),
+                        isActive: index <= currentIndex,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: CheckoutPageView(
+                    pageController: pageController,
+                    formKey: formKey,
+                    autovalidateModeNotifier: autovalidateModeNotifier,
+                  ),
+                ),
+                CustomElevetedButton(
+                  text:
+                      currentIndex != 2
+                          ? S.of(context).next
+                          : orderProvider.payWithCash == true
+                          ? S.of(context).orderNow
+                          : S.of(context).payNow,
+                  onPressed: () {
                     if (currentIndex == 0) {
                       _handleShippingSection(orderProvider, context);
-                      canNavigate = orderProvider.payWithCash != null;
                     } else if (currentIndex == 1) {
-                      canNavigate = formKey.currentState!.validate();
-                      if (!canNavigate) {
-                        autovalidateModeNotifier.value =
-                            AutovalidateMode.always;
-                      }
+                      _handleAdderssSection();
                     }
-                  }
-
-                  if (canNavigate) {
-                    pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.fastOutSlowIn,
-                    );
-                  }
-                },
-                child: StepItem(
-                  stepTitle: steps()[index],
-                  stepNumber: (index + 1).toString(),
-                  isActive: index <= currentIndex,
+                    if (currentIndex == 2) {
+                      context.read<AddOrderCubit>().addOrder(
+                        order: orderProvider,
+                      );
+                    }
+                  },
                 ),
-              ),
+              ],
             ),
           ),
-          Expanded(
-            child: CheckoutPageView(
-              pageController: pageController,
-              formKey: formKey,
-              autovalidateModeNotifier: autovalidateModeNotifier,
-            ),
-          ),
-          CustomElevetedButton(
-            text:
-                currentIndex != 2
-                    ? S.of(context).next
-                    : orderProvider.payWithCash == true
-                    ? S.of(context).orderNow
-                    : S.of(context).payNow,
-            onPressed: () {
-              if (currentIndex == 0) {
-                _handleShippingSection(orderProvider, context);
-              } else if (currentIndex == 1) {
-                _handleAdderssSection();
-              }
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

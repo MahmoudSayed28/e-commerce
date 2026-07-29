@@ -1,9 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/helper/get_user.dart';
+import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/repos/add_oreder_repo.dart';
+import 'package:fruits_app/features/checkout/presentation/cubits/add_order/add_order_cubit.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_view_body.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity_list.dart';
 import 'package:fruits_app/generated/l10n.dart';
@@ -23,30 +27,40 @@ class _CheckoutViewState extends State<CheckoutView> {
   @override
   void initState() {
     super.initState();
-    _getUserId();
-    log('userId: $userId');
+    // _getUserId();
+    // log('userId: $userId');
   }
 
-  Future<void> _getUserId() async {
-    final id = await getUserID();
-    if (!mounted) return;
-    setState(() {
-      userId = id;
-    });
-  }
+  // Future<void> _getUserId() async {
+  //   final id = await getUserID();
+  //   if (!mounted) return;
+  //   setState(() {
+  //     userId = id;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).shipping, style: AppTextStyles.bold19(null)),
-        centerTitle: true,
+    return BlocProvider(
+      create: (context) => AddOrderCubit(
+        addOrederRepo: getIt.get<AddOrderRepo>(),
       ),
-      body: ChangeNotifierProvider(
-        create:
-            (context) =>
-                OrderEntity(cartItemList: widget.cartItems, uId: userId ?? ""),
-        child: const CheckoutViewBody(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            S.of(context).shipping,
+            style: AppTextStyles.bold19(null),
+          ),
+          centerTitle: true,
+        ),
+        body: ChangeNotifierProvider(
+          create:
+              (context) => OrderEntity(
+                cartItemList: widget.cartItems,
+                uId: userId ?? "mm",
+              ),
+          child: const CheckoutViewBody(),
+        ),
       ),
     );
   }

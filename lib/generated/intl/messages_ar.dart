@@ -89,6 +89,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "offer": MessageLookupByLibrary.simpleMessage("عرض"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "orderNow": MessageLookupByLibrary.simpleMessage("اطلب الآن"),
+    "orderPlacedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تقديم الطلب بنجاح",
+    ),
     "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordMinLength": MessageLookupByLibrary.simpleMessage(
