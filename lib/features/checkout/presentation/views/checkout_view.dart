@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fruits_app/core/helper/get_user.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
-import 'package:fruits_app/features/checkout/domain/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_view_body.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity_list.dart';
 import 'package:fruits_app/generated/l10n.dart';

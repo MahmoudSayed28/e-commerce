@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/assets_manager.dart';
-import 'package:fruits_app/features/checkout/domain/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/payment_summary_widget.dart';
 import 'package:fruits_app/generated/l10n.dart';
 import 'package:provider/provider.dart';

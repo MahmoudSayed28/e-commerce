@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_app/features/checkout/domain/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 
 import 'package:fruits_app/features/checkout/presentation/widgets/shipping_payment_method.dart';
 import 'package:fruits_app/generated/l10n.dart';

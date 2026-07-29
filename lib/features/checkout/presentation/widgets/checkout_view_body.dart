@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
 import 'package:fruits_app/core/utils/widgets/custom_snak_bar.dart';
-import 'package:fruits_app/features/checkout/domain/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_page_view.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/step_item.dart';
 import 'package:fruits_app/generated/l10n.dart';

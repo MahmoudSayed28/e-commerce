@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/core/utils/widgets/custom_text_feild.dart';
-import 'package:fruits_app/features/checkout/domain/order_entity.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/custom_swithc_tile.dart';
 import 'package:fruits_app/generated/l10n.dart';
 import 'package:provider/provider.dart';
