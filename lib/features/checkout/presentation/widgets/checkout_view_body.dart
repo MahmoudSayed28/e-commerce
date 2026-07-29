@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
@@ -137,9 +139,13 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                       _handleAdderssSection();
                     }
                     if (currentIndex == 2) {
-                      context.read<AddOrderCubit>().addOrder(
-                        order: orderProvider,
-                      );
+                      if (orderProvider.payWithCash == true) {
+                        context.read<AddOrderCubit>().addOrder(
+                          order: orderProvider,
+                        );
+                      } else {
+                        log('Pay with card');
+                      }
                     }
                   },
                 ),
