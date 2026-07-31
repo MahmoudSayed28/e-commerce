@@ -12,6 +12,7 @@ import 'package:fruits_app/features/checkout/presentation/widgets/step_item.dart
 import 'package:fruits_app/generated/l10n.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key});
@@ -80,79 +81,100 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           inAsyncCall: isLoading,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.5, vertical: 12),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                    steps().length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        bool canNavigate = true;
+            child: BlocListener<PaymentCubit, PaymentState>(
+              listener: (context, state) async {
+    if (state is PaymentSuccess) {
+      final url =
+          'https://accept.paymob.com/api/acceptance/iframes/915524?payment_token=${state.paymentKey}';
 
-                        if (index > currentIndex) {
-                          if (currentIndex == 0) {
-                            _handleShippingSection(orderProvider, context);
-                            canNavigate = orderProvider.payWithCash != null;
-                          } else if (currentIndex == 1) {
-                            canNavigate = formKey.currentState!.validate();
-                            if (!canNavigate) {
-                              autovalidateModeNotifier.value =
-                                  AutovalidateMode.always;
+      final launched = await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      );
+
+      debugPrint('Launched: $launched');
+
+      
+    }
+
+    if (state is PaymentFailure) {
+      debugPrint(state.errorMessage);
+    }
+  },
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      steps().length,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          bool canNavigate = true;
+
+                          if (index > currentIndex) {
+                            if (currentIndex == 0) {
+                              _handleShippingSection(orderProvider, context);
+                              canNavigate = orderProvider.payWithCash != null;
+                            } else if (currentIndex == 1) {
+                              canNavigate = formKey.currentState!.validate();
+                              if (!canNavigate) {
+                                autovalidateModeNotifier.value =
+                                    AutovalidateMode.always;
+                              }
                             }
                           }
-                        }
 
-                        if (canNavigate) {
-                          pageController.animateToPage(
-                            index,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.fastOutSlowIn,
-                          );
-                        }
-                      },
-                      child: StepItem(
-                        stepTitle: steps()[index],
-                        stepNumber: (index + 1).toString(),
-                        isActive: index <= currentIndex,
+                          if (canNavigate) {
+                            pageController.animateToPage(
+                              index,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.fastOutSlowIn,
+                            );
+                          }
+                        },
+                        child: StepItem(
+                          stepTitle: steps()[index],
+                          stepNumber: (index + 1).toString(),
+                          isActive: index <= currentIndex,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: CheckoutPageView(
-                    pageController: pageController,
-                    formKey: formKey,
-                    autovalidateModeNotifier: autovalidateModeNotifier,
+                  Expanded(
+                    child: CheckoutPageView(
+                      pageController: pageController,
+                      formKey: formKey,
+                      autovalidateModeNotifier: autovalidateModeNotifier,
+                    ),
                   ),
-                ),
-                CustomElevetedButton(
-                  text:
-                      currentIndex != 2
-                          ? S.of(context).next
-                          : orderProvider.payWithCash == true
-                          ? S.of(context).orderNow
-                          : S.of(context).payNow,
-                  onPressed: () {
-                    if (currentIndex == 0) {
-                      _handleShippingSection(orderProvider, context);
-                    } else if (currentIndex == 1) {
-                      _handleAdderssSection();
-                    }
-                    if (currentIndex == 2) {
-                      if (orderProvider.payWithCash == true) {
-                        context.read<AddOrderCubit>().addOrder(
-                          order: orderProvider,
-                        );
-                      } else {
-                        context.read<PaymentCubit>().createPayment(
-                          order: orderProvider,
-                        );
+                  CustomElevetedButton(
+                    text:
+                        currentIndex != 2
+                            ? S.of(context).next
+                            : orderProvider.payWithCash == true
+                            ? S.of(context).orderNow
+                            : S.of(context).payNow,
+                    onPressed: () {
+                      if (currentIndex == 0) {
+                        _handleShippingSection(orderProvider, context);
+                      } else if (currentIndex == 1) {
+                        _handleAdderssSection();
                       }
-                    }
-                  },
-                ),
-              ],
+                      if (currentIndex == 2) {
+                        if (orderProvider.payWithCash == true) {
+                          context.read<AddOrderCubit>().addOrder(
+                            order: orderProvider,
+                          );
+                        } else {
+                          context.read<PaymentCubit>().createPayment(
+                            order: orderProvider,
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );

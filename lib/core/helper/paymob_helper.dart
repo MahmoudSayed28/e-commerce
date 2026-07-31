@@ -16,6 +16,7 @@ class PaymobService {
         "amount": price,
         "currency": "EGP",
         "firstName": firstName,
+        "lastName": "  .",
         "email": email,
         "phone": phone,
       },
