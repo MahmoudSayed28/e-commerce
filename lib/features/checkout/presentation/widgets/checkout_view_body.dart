@@ -179,4 +179,5 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       showCustomSnackBar(context, message: S.of(context).selectPaymentMethod);
     }
   }
-}
+} 
+//? https://chatgpt.com/share/6a69ef48-293c-83ea-b640-fe2670c5ba75
