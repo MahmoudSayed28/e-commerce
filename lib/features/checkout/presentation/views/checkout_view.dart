@@ -1,13 +1,14 @@
-import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruits_app/core/helper/get_user.dart';
 import 'package:fruits_app/core/helper/service_locator.dart';
 import 'package:fruits_app/core/utils/app_styles.dart';
 import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/domain/repos/add_oreder_repo.dart';
+import 'package:fruits_app/features/checkout/domain/repos/paymob_repo.dart';
 import 'package:fruits_app/features/checkout/presentation/cubits/add_order/add_order_cubit.dart';
+import 'package:fruits_app/features/checkout/presentation/cubits/payment/payment_cubit.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_view_body.dart';
 import 'package:fruits_app/features/home/domain/entity/cart_entity_list.dart';
 import 'package:fruits_app/generated/l10n.dart';
@@ -27,24 +28,16 @@ class _CheckoutViewState extends State<CheckoutView> {
   @override
   void initState() {
     super.initState();
-    // _getUserId();
-    // log('userId: $userId');
+    userId = FirebaseAuth.instance.currentUser?.uid;
   }
 
-  // Future<void> _getUserId() async {
-  //   final id = await getUserID();
-  //   if (!mounted) return;
-  //   setState(() {
-  //     userId = id;
-  //   });
-  // }
+  
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddOrderCubit(
-        addOrederRepo: getIt.get<AddOrderRepo>(),
-      ),
+      create:
+          (context) => AddOrderCubit(addOrederRepo: getIt.get<AddOrderRepo>()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -57,9 +50,14 @@ class _CheckoutViewState extends State<CheckoutView> {
           create:
               (context) => OrderEntity(
                 cartItemList: widget.cartItems,
-                uId: userId ?? "mm",
+                uId: userId ?? "",
               ),
-          child: const CheckoutViewBody(),
+          child: BlocProvider(
+            create: (context) => PaymentCubit(
+              getIt.get<PaymobRepo>(),
+            ),
+            child: const CheckoutViewBody(),
+          ),
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
 import 'package:fruits_app/core/utils/widgets/custom_snak_bar.dart';
 import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/presentation/cubits/add_order/add_order_cubit.dart';
+import 'package:fruits_app/features/checkout/presentation/cubits/payment/payment_cubit.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/checkout_page_view.dart';
 import 'package:fruits_app/features/checkout/presentation/widgets/step_item.dart';
 import 'package:fruits_app/generated/l10n.dart';
@@ -144,7 +145,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                           order: orderProvider,
                         );
                       } else {
-                        log('Pay with card');
+                        context.read<PaymentCubit>().createPayment(
+                          order: orderProvider,
+                        );
                       }
                     }
                   },
@@ -179,5 +182,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       showCustomSnackBar(context, message: S.of(context).selectPaymentMethod);
     }
   }
-} 
+}
+
 //? https://chatgpt.com/share/6a69ef48-293c-83ea-b640-fe2670c5ba75

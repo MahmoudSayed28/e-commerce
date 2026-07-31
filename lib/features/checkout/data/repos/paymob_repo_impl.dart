@@ -4,8 +4,6 @@ import 'package:fruits_app/core/errors/failure.dart';
 import 'package:fruits_app/core/helper/paymob_helper.dart';
 import 'package:fruits_app/features/checkout/domain/repos/paymob_repo.dart';
 
-
-
 class PaymentRepoImpl implements PaymobRepo {
   final PaymobService paymobService;
 
@@ -13,34 +11,24 @@ class PaymentRepoImpl implements PaymobRepo {
 
   @override
   Future<Either<Failure, String>> getPaymentKey({
-    required int amount,
+    required double price,
     required String firstName,
-    required String lastName,
     required String email,
     required String phone,
   }) async {
     try {
       final paymentKey = await paymobService.getPaymentKey(
-        amount: amount,
+        price: price,
         firstName: firstName,
-        lastName: lastName,
         email: email,
         phone: phone,
       );
 
       return Right(paymentKey);
     } on CustomException catch (e) {
-      return Left(
-        ServerFailure(
-          errorMessage: e.message,
-        ),
-      );
+      return Left(ServerFailure(errorMessage: e.message));
     } catch (e) {
-      return Left(
-        ServerFailure(
-          errorMessage: e.toString(),
-        ),
-      );
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 }
