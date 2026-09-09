@@ -1,24 +1,27 @@
 import 'package:fruits_app/core/errors/exceptions.dart';
+import 'package:fruits_app/features/checkout/data/models/order_model.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymobService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<String> getPaymentKey({
-    required double price,
-    required String firstName,
-    required String email,
-    required String phone,
-  }) async {
+  Future<String> getPaymentKey({required OrderEntity order}) async {
+    final orderJson = OrderModel.fromEntity(order).toJson();
+
     final response = await _supabase.functions.invoke(
       'create-paymob-payment',
       body: {
-        "amount": price,
+        "amount": (order.cartItemList.calculateTotalPrice() + 30).round(),
         "currency": "EGP",
-        "firstName": firstName,
-        "lastName": "  .",
-        "email": email,
-        "phone": phone,
+
+        "firstName": order.shippingEntity.name,
+        "lastName": ".",
+        "email": order.shippingEntity.email,
+        "phone": order.shippingEntity.phone,
+
+        // هيترسل مع الـ Payment Key
+        "order": orderJson,
       },
     );
 

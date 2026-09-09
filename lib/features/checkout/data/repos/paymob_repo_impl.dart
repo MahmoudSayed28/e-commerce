@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fruits_app/core/errors/exceptions.dart';
 import 'package:fruits_app/core/errors/failure.dart';
 import 'package:fruits_app/core/helper/paymob_helper.dart';
+import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/domain/repos/paymob_repo.dart';
 
 class PaymentRepoImpl implements PaymobRepo {
@@ -11,17 +12,11 @@ class PaymentRepoImpl implements PaymobRepo {
 
   @override
   Future<Either<Failure, String>> getPaymentKey({
-    required double price,
-    required String firstName,
-    required String email,
-    required String phone,
+    required OrderEntity order,
   }) async {
     try {
       final paymentKey = await paymobService.getPaymentKey(
-        price: price,
-        firstName: firstName,
-        email: email,
-        phone: phone,
+        order: order,
       );
 
       return Right(paymentKey);

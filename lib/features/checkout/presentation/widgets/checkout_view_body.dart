@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_app/core/utils/widgets/custem_eleveted_button.dart';
@@ -89,11 +91,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     Uri.parse(url),
                     mode: LaunchMode.externalApplication,
                   );
-                  if (launched && context.mounted) {
-                    context.read<AddOrderCubit>().addOrder(
-                      order: orderProvider,
-                    );
-                  }
                 }
 
                 if (state is PaymentFailure) {
@@ -154,6 +151,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                             ? S.of(context).orderNow
                             : S.of(context).payNow,
                     onPressed: () {
+                      log("BUTTON PRESSED");
+                      log("currentIndex = $currentIndex");
+                      log("payWithCash = ${orderProvider.payWithCash}");
                       if (currentIndex == 0) {
                         _handleShippingSection(orderProvider, context);
                       } else if (currentIndex == 1) {
@@ -165,6 +165,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                             order: orderProvider,
                           );
                         } else {
+                          log('Adding card payment');
+
                           context.read<PaymentCubit>().createPayment(
                             order: orderProvider,
                           );

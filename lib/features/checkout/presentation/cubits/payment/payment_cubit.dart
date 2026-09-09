@@ -14,11 +14,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     emit(PaymentLoading());
 
     final result = await paymentRepo.getPaymentKey(
-      price: order.cartItemList.calculateTotalPrice(),
-      firstName: order.shippingEntity.name!,
-
-      email: order.shippingEntity.email!,
-      phone: order.shippingEntity.phone!,
+      order: order,
     );
 
     result.fold(
