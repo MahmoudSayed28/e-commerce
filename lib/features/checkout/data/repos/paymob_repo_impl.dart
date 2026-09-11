@@ -1,29 +1,38 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruits_app/core/errors/exceptions.dart';
 import 'package:fruits_app/core/errors/failure.dart';
+import 'package:fruits_app/core/errors/exceptions.dart';
 import 'package:fruits_app/core/helper/paymob_helper.dart';
-import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:fruits_app/features/checkout/domain/repos/paymob_repo.dart';
 
-class PaymentRepoImpl implements PaymobRepo {
+class PaymobRepoImpl implements PaymobRepo {
   final PaymobService paymobService;
 
-  PaymentRepoImpl(this.paymobService);
+  PaymobRepoImpl({
+    required this.paymobService,
+  });
 
   @override
-  Future<Either<Failure, String>> getPaymentKey({
-    required OrderEntity order,
+  Future<Either<Failure, String>> createPayment({
+    required String orderId,
   }) async {
     try {
-      final paymentKey = await paymobService.getPaymentKey(
-        order: order,
+      final paymentUrl = await paymobService.createPayment(
+        orderId: orderId,
       );
 
-      return Right(paymentKey);
+      return Right(paymentUrl);
     } on CustomException catch (e) {
-      return Left(ServerFailure(errorMessage: e.message));
+      return Left(
+        ServerFailure(
+          errorMessage: e.message,
+        ),
+      );
     } catch (e) {
-      return Left(ServerFailure(errorMessage: e.toString()));
+      return Left(
+        ServerFailure(
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 }

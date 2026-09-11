@@ -1,29 +1,19 @@
 part of 'payment_cubit.dart';
 
-sealed class PaymentState extends Equatable {
-  const PaymentState();
+abstract class PaymentState {}
 
-  @override
-  List<Object> get props => [];
+class PaymentInitial extends PaymentState {}
+
+class PaymentLoading extends PaymentState {}
+
+class PaymentSuccess extends PaymentState {
+  final String paymentUrl;
+
+  PaymentSuccess(this.paymentUrl);
 }
 
-final class PaymentInitial extends PaymentState {}
-final class PaymentLoading extends PaymentState {}
-final class PaymentSuccess extends PaymentState {
-  final String paymentKey;
-
-  const PaymentSuccess(this.paymentKey);
-
-  @override
-  List<Object> get props => [paymentKey];
-}
-final class PaymentFailure extends PaymentState {
+class PaymentFailure extends PaymentState {
   final String errorMessage;
 
-  const PaymentFailure( this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
+  PaymentFailure(this.errorMessage);
 }
-
-

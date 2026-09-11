@@ -1,12 +1,76 @@
-const PAYMOB_API_KEY = Deno.env.get("PAYMOB_API_KEY")!;
-const PAYMOB_INTEGRATION_ID = Deno.env.get("PAYMOB_INTEGRATION_ID")!;
-const PAYMOB_IFRAME_ID = Deno.env.get("PAYMOB_IFRAME_ID")!;
+import { initializeApp, cert, getApps } from "npm:firebase-admin@13.4.0/app";
+import { getFirestore } from "npm:firebase-admin@13.4.0/firestore";
+const FIREBASE_SERVICE_ACCOUNT =
+  Deno.env.get("FIREBASE_SERVICE_ACCOUNT");
+
+const PAYMOB_SECRET_KEY =
+  Deno.env.get("PAYMOB_SECRET_KEY");
+
+const PAYMOB_PUBLIC_KEY =
+  Deno.env.get("PAYMOB_PUBLIC_KEY");
+
+const PAYMOB_INTEGRATION_ID =
+  Deno.env.get("PAYMOB_INTEGRATION_ID");
+
+if (!FIREBASE_SERVICE_ACCOUNT) {
+  throw new Error(
+    "FIREBASE_SERVICE_ACCOUNT is missing",
+  );
+}
+
+if (!PAYMOB_SECRET_KEY) {
+  throw new Error(
+    "PAYMOB_SECRET_KEY is missing",
+  );
+}
+
+if (!PAYMOB_PUBLIC_KEY) {
+  throw new Error(
+    "PAYMOB_PUBLIC_KEY is missing",
+  );
+}
+
+if (!PAYMOB_INTEGRATION_ID) {
+  throw new Error(
+    "PAYMOB_INTEGRATION_ID is missing",
+  );
+}
+
+if (!getApps().length) {
+  initializeApp({
+    credential: cert(
+      JSON.parse(
+        FIREBASE_SERVICE_ACCOUNT,
+      ),
+    ),
+  });
+}
+
+const db = getFirestore();
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods":
+    "POST, OPTIONS",
 };
+
+function response(
+  data: Record<string, unknown>,
+  status = 200,
+) {
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
+      },
+    },
+  );
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -16,180 +80,392 @@ Deno.serve(async (req) => {
   }
 
   if (req.method !== "POST") {
-    return new Response(
-      JSON.stringify({
+    return response(
+      {
         success: false,
         message: "POST only",
-      }),
-      {
-        status: 405,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json",
-        },
       },
+      405,
     );
   }
 
   try {
-    console.log("========== CREATE PAYMOB PAYMENT ==========");
-    console.log("PAYMOB_INTEGRATION_ID =", PAYMOB_INTEGRATION_ID);
-    console.log("PAYMOB_IFRAME_ID =", PAYMOB_IFRAME_ID);
+    // ==========================================
+    // 1. Get orderId
+    // ==========================================
 
     const body = await req.json();
 
-    console.log("REQUEST:");
-    console.log(JSON.stringify(body, null, 2));
+    const orderId = body?.orderId;
 
-    const {
-      amount,
-      currency,
-      firstName,
-      lastName,
-      email,
-      phone,
-      order,
-    } = body;
-
-    // ================= AUTH =================
-
-    const authResponse = await fetch(
-      "https://accept.paymob.com/api/auth/tokens",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    if (
+      typeof orderId !== "string" ||
+      orderId.trim().length === 0
+    ) {
+      return response(
+        {
+          success: false,
+          message: "orderId is required",
         },
-        body: JSON.stringify({
-          api_key: PAYMOB_API_KEY,
-        }),
-      },
-    );
-
-    const authData = await authResponse.json();
-
-    console.log("AUTH:");
-    console.log(JSON.stringify(authData, null, 2));
-
-    if (!authData.token) {
-      throw new Error("Paymob Authentication Failed");
+        400,
+      );
     }
 
-    // ================= ORDER =================
+    // ==========================================
+    // 2. Get Firestore order
+    // ==========================================
 
-    const orderResponse = await fetch(
-      "https://accept.paymob.com/api/ecommerce/orders",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const orderRef = db
+      .collection("orders")
+      .doc(orderId);
+
+    const orderSnapshot =
+      await orderRef.get();
+
+    if (!orderSnapshot.exists) {
+      return response(
+        {
+          success: false,
+          message: "Order not found",
         },
-        body: JSON.stringify({
-          auth_token: authData.token,
-          delivery_needed: false,
-          amount_cents: Math.round(Number(amount) * 100),
-          currency,
-          items: [],
-        }),
-      },
-    );
-
-    const orderData = await orderResponse.json();
-
-    console.log("ORDER:");
-    console.log(JSON.stringify(orderData, null, 2));
-
-    if (!orderData.id) {
-      throw new Error("Paymob Order Creation Failed");
+        404,
+      );
     }
 
-    // ================= PAYMENT KEY =================
+    const order =
+      orderSnapshot.data();
 
-    const paymentPayload = {
-      auth_token: authData.token,
-      amount_cents: Math.round(Number(amount) * 100),
-      expiration: 3600,
-      order_id: orderData.id,
-      currency,
-      integration_id: Number(PAYMOB_INTEGRATION_ID),
+    // ==========================================
+    // 3. Validate order
+    // ==========================================
+
+    if (
+      order?.paymentMethod !== "card"
+    ) {
+      return response(
+        {
+          success: false,
+          message:
+            "This order is not a card payment order",
+        },
+        400,
+      );
+    }
+
+    if (
+      order?.paymentStatus === "paid"
+    ) {
+      return response(
+        {
+          success: false,
+          message: "Order is already paid",
+        },
+        400,
+      );
+    }
+
+    // ==========================================
+    // 4. Calculate amount
+    // ==========================================
+
+    const totalPrice =
+      Number(order?.totalPrice);
+
+    if (
+      !Number.isFinite(totalPrice) ||
+      totalPrice <= 0
+    ) {
+      return response(
+        {
+          success: false,
+          message: "Invalid order total",
+        },
+        400,
+      );
+    }
+
+    const amountCents =
+      Math.round(totalPrice * 100);
+
+    // ==========================================
+    // 5. Shipping data
+    // ==========================================
+
+    const shipping =
+      order?.shipping ?? {};
+
+    const fullName =
+      shipping.name
+        ?.toString()
+        .trim() ||
+      "Customer";
+
+    const nameParts =
+      fullName.split(/\s+/);
+
+    const firstName =
+      nameParts.shift() ||
+      "Customer";
+
+    const lastName =
+      nameParts.join(" ") ||
+      "Customer";
+
+    // ==========================================
+    // 6. Create Paymob Intention
+    // ==========================================
+
+    const intentionBody = {
+      amount: amountCents,
+
+      currency: "EGP",
+
+      payment_methods: [
+        Number(
+          PAYMOB_INTEGRATION_ID,
+        ),
+      ],
+
+      items: [],
 
       billing_data: {
         apartment: "NA",
-        email,
+
+        email:
+          shipping.email ||
+          "customer@example.com",
+
         floor: "NA",
-        first_name: firstName,
-        last_name: lastName,
-        street: "NA",
+
+        first_name:
+          firstName,
+
+        last_name:
+          lastName,
+
+        street:
+          shipping.address ||
+          "NA",
+
         building: "NA",
-        phone_number: phone,
-        shipping_method: "NA",
-        postal_code: "NA",
-        city: "NA",
-        state: "NA",
-        country: "EG",
+
+        phone_number:
+          shipping.phone ||
+          "NA",
+
+        shipping_method:
+          "PKG",
+
+        postal_code:
+          "NA",
+
+        city:
+          shipping.city ||
+          "Cairo",
+
+        country:
+          "EG",
+
+        state:
+          shipping.city ||
+          "Cairo",
       },
 
-      extra: {
-        order,
+      customer: {
+        first_name:
+          firstName,
+
+        last_name:
+          lastName,
+
+        email:
+          shipping.email ||
+          "customer@example.com",
+
+        phone_number:
+          shipping.phone ||
+          "NA",
       },
 
-      lock_order_when_paid: false,
+      special_reference:
+        orderId,
     };
 
-    console.log("PAYMENT PAYLOAD:");
-    console.log(JSON.stringify(paymentPayload, null, 2));
-
-    const paymentResponse = await fetch(
-      "https://accept.paymob.com/api/acceptance/payment_keys",
+    console.log(
+      "Creating Paymob intention",
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paymentPayload),
+        orderId,
+        amountCents,
+        integrationId:
+          PAYMOB_INTEGRATION_ID,
       },
     );
 
-    const paymentData = await paymentResponse.json();
+    const paymobResponse =
+      await fetch(
+        "https://accept.paymob.com/v1/intention/",
+        {
+          method: "POST",
 
-    console.log("PAYMENT RESPONSE:");
-    console.log(JSON.stringify(paymentData, null, 2));
+          headers: {
+            "Content-Type":
+              "application/json",
 
-    if (!paymentData.token) {
-      throw new Error("Payment Key Creation Failed");
+            Authorization:
+              `Token ${PAYMOB_SECRET_KEY}`,
+          },
+
+          body: JSON.stringify(
+            intentionBody,
+          ),
+        },
+      );
+
+    const paymobText =
+      await paymobResponse.text();
+
+    let paymobData: any;
+
+    try {
+      paymobData =
+        JSON.parse(
+          paymobText,
+        );
+    } catch {
+      paymobData = null;
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        paymentKey: paymentData.token,
-        orderId: orderData.id,
-        integrationId: PAYMOB_INTEGRATION_ID,
-        paymentUrl:
-          `https://accept.paymob.com/api/acceptance/iframes/${PAYMOB_IFRAME_ID}?payment_token=${paymentData.token}`,
-      }),
-      {
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json",
-        },
-      },
+    console.log(
+      "Paymob status:",
+      paymobResponse.status,
     );
-  } catch (e) {
-    console.error(e);
 
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: e instanceof Error ? e.message : String(e),
-      }),
-      {
-        status: 500,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json",
+    if (!paymobResponse.ok) {
+      console.error(
+        "Paymob error:",
+        paymobData ??
+          paymobText,
+      );
+
+      return response(
+        {
+          success: false,
+          message:
+            "Paymob intention creation failed",
+          details:
+            paymobData ??
+            paymobText,
         },
+        500,
+      );
+    }
+
+    // ==========================================
+    // 7. Get client secret
+    // ==========================================
+
+    const clientSecret =
+      paymobData?.client_secret;
+
+    if (
+      !clientSecret
+    ) {
+      console.error(
+        "No client_secret:",
+        paymobData,
+      );
+
+      return response(
+        {
+          success: false,
+          message:
+            "Paymob client secret was not returned",
+        },
+        500,
+      );
+    }
+
+    // ==========================================
+    // 8. Save Paymob references
+    // ==========================================
+
+    await orderRef.update({
+      "payment.intentionId":
+        paymobData?.id
+          ? String(
+              paymobData.id,
+            )
+          : null,
+
+      "payment.paymobOrderId":
+        paymobData?.intention_order_id
+          ? String(
+              paymobData.intention_order_id,
+            )
+          : null,
+
+      paymentStatus:
+        "awaiting_payment",
+
+      orderStatus:
+        "awaiting_payment",
+
+      updatedAt:
+        new Date().toISOString(),
+    });
+
+    // ==========================================
+    // 9. Unified Checkout URL
+    // ==========================================
+
+    const paymentUrl =
+      "https://accept.paymob.com/unifiedcheckout/" +
+      `?publicKey=${encodeURIComponent(
+        PAYMOB_PUBLIC_KEY,
+      )}` +
+      `&clientSecret=${encodeURIComponent(
+        clientSecret,
+      )}`;
+
+    // ==========================================
+    // 10. Return URL to Flutter
+    // ==========================================
+
+    return response({
+      success: true,
+
+      paymentUrl,
+
+      intentionId:
+        paymobData?.id
+          ? String(
+              paymobData.id,
+            )
+          : null,
+
+      paymobOrderId:
+        paymobData?.intention_order_id
+          ? String(
+              paymobData.intention_order_id,
+            )
+          : null,
+    });
+  } catch (error) {
+    console.error(
+      "CREATE PAYMOB PAYMENT ERROR:",
+      error,
+    );
+
+    return response(
+      {
+        success: false,
+
+        message:
+          error instanceof Error
+            ? error.message
+            : "Payment creation failed",
       },
+      500,
     );
   }
 });

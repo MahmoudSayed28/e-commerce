@@ -1,20 +1,30 @@
 part of 'add_order_cubit.dart';
 
-sealed class AddOrderState extends Equatable {
-  const AddOrderState();
+abstract class AddOrderState {}
 
-  @override
-  List<Object> get props => [];
+class AddOrderInitial extends AddOrderState {}
+
+class AddOrderLoading extends AddOrderState {}
+
+class AddOrderSuccess extends AddOrderState {
+  final String orderId;
+
+  AddOrderSuccess({
+    required this.orderId,
+  });
+}
+class CardOrderDraftSuccess extends AddOrderState {
+  final String orderId;
+
+  CardOrderDraftSuccess({
+    required this.orderId,
+  });
 }
 
-final class AddOrderInitial extends AddOrderState {}
-final class AddOrderLoading extends AddOrderState {}
-final class AddOrderSuccess extends AddOrderState {}
-final class AddOrderFailure extends AddOrderState {
+class AddOrderFailure extends AddOrderState {
   final String errorMessage;
 
-  const AddOrderFailure({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
+  AddOrderFailure({
+    required this.errorMessage,
+  });
 }

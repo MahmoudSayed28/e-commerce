@@ -23,11 +23,13 @@ void initServiceLocator() {
   );
   getIt.registerSingleton<ProductRepo>(ProductRepoImpl(FirestoreService()));
   getIt.registerSingleton<AddOrderRepo>(
-    AddOrderRepoImpl(remoteDataService: FirestoreService()),
-  );
+  AddOrderRepoImpl(
+    remoteDataService: FirestoreService(),
+  ),
+);
    getIt.registerSingleton<PaymobRepo>(
-    PaymentRepoImpl(
-      PaymobService(),
+    PaymobRepoImpl(
+       paymobService: PaymobService(),
     ),
   );
 }

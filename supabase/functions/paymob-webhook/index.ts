@@ -1,127 +1,420 @@
-import { initializeApp, cert, getApps } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp, cert, getApps } from "npm:firebase-admin@13.4.0/app";
+import { getFirestore } from "npm:firebase-admin@13.4.0/firestore";
+const FIREBASE_SERVICE_ACCOUNT =
+  Deno.env.get(
+    "FIREBASE_SERVICE_ACCOUNT",
+  );
 
-const serviceAccount = JSON.parse(
-  Deno.env.get("FIREBASE_SERVICE_ACCOUNT")!,
-);
+const PAYMOB_HMAC_SECRET =
+  Deno.env.get(
+    "PAYMOB_HMAC_SECRET",
+  );
+
+if (!FIREBASE_SERVICE_ACCOUNT) {
+  throw new Error(
+    "FIREBASE_SERVICE_ACCOUNT is missing",
+  );
+}
+
+if (!PAYMOB_HMAC_SECRET) {
+  throw new Error(
+    "PAYMOB_HMAC_SECRET is missing",
+  );
+}
 
 if (!getApps().length) {
   initializeApp({
-    credential: cert(serviceAccount),
+    credential: cert(
+      JSON.parse(
+        FIREBASE_SERVICE_ACCOUNT,
+      ),
+    ),
   });
 }
 
-const db = getFirestore();
+const db =
+  getFirestore();
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin":
+    "*",
+
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
+
+  "Access-Control-Allow-Methods":
+    "POST, OPTIONS",
 };
+
+function response(
+  data: Record<string, unknown>,
+  status = 200,
+) {
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
+      headers: {
+        ...corsHeaders,
+        "Content-Type":
+          "application/json",
+      },
+    },
+  );
+}
+
+async function calculateHmac(
+  payment: any,
+): Promise<string> {
+  const values = [
+    payment.amount_cents,
+    payment.created_at,
+    payment.currency,
+    payment.error_occured,
+    payment.has_parent_transaction,
+    payment.id,
+    payment.integration_id,
+    payment.is_3d_secure,
+    payment.is_auth,
+    payment.is_capture,
+    payment.is_refunded,
+    payment.is_standalone_payment,
+    payment.is_voided,
+    payment.order?.id,
+    payment.owner,
+    payment.pending,
+    payment.source_data?.pan,
+    payment.source_data?.sub_type,
+    payment.source_data?.type,
+    payment.success,
+  ];
+
+  const hmacString =
+    values
+      .map((value) =>
+        String(value),
+      )
+      .join("");
+
+  const key =
+    await crypto.subtle.importKey(
+      "raw",
+
+      new TextEncoder().encode(
+        PAYMOB_HMAC_SECRET,
+      ),
+
+      {
+        name: "HMAC",
+        hash: "SHA-512",
+      },
+
+      false,
+
+      ["sign"],
+    );
+
+  const signature =
+    await crypto.subtle.sign(
+      "HMAC",
+      key,
+      new TextEncoder().encode(
+        hmacString,
+      ),
+    );
+
+  return Array.from(
+    new Uint8Array(
+      signature,
+    ),
+  )
+    .map((byte) =>
+      byte
+        .toString(16)
+        .padStart(2, "0"),
+    )
+    .join("");
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", {
-      headers: corsHeaders,
-    });
+    return new Response(
+      "ok",
+      {
+        headers:
+          corsHeaders,
+      },
+    );
+  }
+
+  if (req.method !== "POST") {
+    return response(
+      {
+        success: false,
+        message: "POST only",
+      },
+      405,
+    );
   }
 
   try {
-    console.log("========== PAYMOB WEBHOOK ==========");
+    console.log(
+      "========== PAYMOB WEBHOOK ==========",
+    );
 
-    // اقرأ الـ Body كنص
-    const rawBody = await req.text();
+    // ==========================================
+    // 1. Read callback
+    // ==========================================
 
-    console.log("RAW BODY:");
-    console.log(rawBody);
+    const body =
+      await req.json();
 
-    // لو الـ Body فاضي تجاهله
-    if (!rawBody.trim()) {
-      console.log("EMPTY BODY -> IGNORE");
-      return Response.json({
-        success: true,
-      });
-    }
-
-    // Parse
-    const body = JSON.parse(rawBody);
-
-    console.log("BODY:");
-    console.log(JSON.stringify(body, null, 2));
-
-    const payment = body.obj ?? body;
+    const payment =
+      body?.obj;
 
     if (!payment) {
-      console.log("NO PAYMENT OBJECT");
-      return Response.json({
+      return response({
         success: true,
       });
     }
 
-    console.log("PAYMENT SUCCESS:", payment.success);
-    console.log("PAYMENT PENDING:", payment.pending);
-    console.log("PAYMENT STATUS:", payment.order?.payment_status);
+    // ==========================================
+    // 2. HMAC
+    // ==========================================
 
-    // تجاهل أي Callback قبل اكتمال الدفع
+    const receivedHmac =
+      new URL(req.url)
+        .searchParams
+        .get("hmac");
+
+    if (!receivedHmac) {
+      return response(
+        {
+          success: false,
+          message:
+            "HMAC is missing",
+        },
+        401,
+      );
+    }
+
+    const calculatedHmac =
+      await calculateHmac(
+        payment,
+      );
+
+    if (
+      calculatedHmac.toLowerCase() !==
+      receivedHmac.toLowerCase()
+    ) {
+      console.error(
+        "INVALID HMAC",
+      );
+
+      return response(
+        {
+          success: false,
+          message:
+            "Invalid HMAC",
+        },
+        401,
+      );
+    }
+
+    console.log(
+      "HMAC VERIFIED",
+    );
+
+    // ==========================================
+    // 3. Payment status
+    // ==========================================
+
     if (
       payment.success !== true ||
       payment.pending === true ||
-      payment.order?.payment_status !== "PAID"
+      payment.error_occured === true ||
+      payment.is_voided === true ||
+      payment.is_refunded === true
     ) {
-      console.log("IGNORE CALLBACK");
-      return Response.json({
+      console.log(
+        "PAYMENT NOT SUCCESSFUL",
+      );
+
+      return response({
         success: true,
       });
     }
 
-    const order = payment.payment_key_claims?.extra?.order;
+    // ==========================================
+    // 4. IDs
+    // ==========================================
 
-    if (!order) {
-      throw new Error("Order not found inside payment_key_claims.extra");
+    const transactionId =
+      payment.id;
+
+    const paymobOrderId =
+      payment.order?.id;
+
+    if (!transactionId) {
+      throw new Error(
+        "Transaction ID missing",
+      );
     }
 
-    console.log("ORDER:");
-    console.log(JSON.stringify(order, null, 2));
+    if (!paymobOrderId) {
+      throw new Error(
+        "Paymob Order ID missing",
+      );
+    }
 
-    // منع تكرار الحفظ
-    const existing = await db
-      .collection("orders")
-      .where("transactionId", "==", payment.id)
-      .limit(1)
-      .get();
+    // ==========================================
+    // 5. Find Firestore order
+    // ==========================================
 
-    if (!existing.empty) {
-      console.log("ORDER ALREADY EXISTS");
-      return Response.json({
+    const snapshot =
+      await db
+        .collection("orders")
+        .where(
+          "payment.paymobOrderId",
+          "==",
+          String(
+            paymobOrderId,
+          ),
+        )
+        .limit(1)
+        .get();
+
+    if (snapshot.empty) {
+      throw new Error(
+        `Order not found for Paymob order ${paymobOrderId}`,
+      );
+    }
+
+    const orderDoc =
+      snapshot.docs[0];
+
+    const orderRef =
+      orderDoc.ref;
+
+    const order =
+      orderDoc.data();
+
+    // ==========================================
+    // 6. Already paid
+    // ==========================================
+
+    if (
+      order.paymentStatus ===
+      "paid"
+    ) {
+      return response({
         success: true,
       });
     }
 
-    console.log("START FIRESTORE");
+    // ==========================================
+    // 7. Verify amount
+    // ==========================================
 
-    const doc = await db.collection("orders").add({
-      ...order,
-      paymobOrderId: payment.order.id,
-      transactionId: payment.id,
-      paymentStatus: "paid",
-      createdAt: new Date().toISOString(),
+    const expectedAmount =
+      Math.round(
+        Number(
+          order.totalPrice,
+        ) * 100,
+      );
+
+    const receivedAmount =
+      Number(
+        payment.amount_cents,
+      );
+
+    if (
+      expectedAmount !==
+      receivedAmount
+    ) {
+      console.error(
+        "AMOUNT MISMATCH",
+        {
+          expected:
+            expectedAmount,
+
+          received:
+            receivedAmount,
+        },
+      );
+
+      throw new Error(
+        "Payment amount does not match order amount",
+      );
+    }
+
+    // ==========================================
+    // 8. Verify currency
+    // ==========================================
+
+    if (
+      payment.currency !==
+      "EGP"
+    ) {
+      throw new Error(
+        "Invalid payment currency",
+      );
+    }
+
+    // ==========================================
+    // 9. Update Firestore
+    // ==========================================
+
+    await orderRef.update({
+      paymentStatus:
+        "paid",
+
+      orderStatus:
+        "confirmed",
+
+      "payment.transactionId":
+        String(
+          transactionId,
+        ),
+
+      "payment.paymobOrderId":
+        String(
+          paymobOrderId,
+        ),
+
+      "payment.paidAt":
+        new Date()
+          .toISOString(),
+
+      updatedAt:
+        new Date()
+          .toISOString(),
     });
 
-    console.log("DOCUMENT ID:", doc.id);
-    console.log("FIRESTORE DONE");
+    console.log(
+      "ORDER PAID:",
+      orderDoc.id,
+    );
 
-    return Response.json({
+    return response({
       success: true,
     });
+  } catch (error) {
+    console.error(
+      "PAYMOB WEBHOOK ERROR:",
+      error,
+    );
 
-  } catch (e: any) {
-    console.log("========== ERROR ==========");
-    console.log(e);
+    return response(
+      {
+        success: false,
 
-    return Response.json({
-      success: false,
-      error: e.message,
-      stack: e.stack,
-    });
+        message:
+          error instanceof Error
+            ? error.message
+            : "Webhook failed",
+      },
+      500,
+    );
   }
 });

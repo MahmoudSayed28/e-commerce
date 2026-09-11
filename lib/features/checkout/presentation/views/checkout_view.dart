@@ -37,7 +37,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create:
-          (context) => AddOrderCubit(addOrederRepo: getIt.get<AddOrderRepo>()),
+          (context) => AddOrderCubit(addOrderRepo: getIt.get<AddOrderRepo>()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(

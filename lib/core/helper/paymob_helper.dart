@@ -1,40 +1,61 @@
 import 'package:fruits_app/core/errors/exceptions.dart';
-import 'package:fruits_app/features/checkout/data/models/order_model.dart';
-import 'package:fruits_app/features/checkout/domain/entity/order_entity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymobService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<String> getPaymentKey({required OrderEntity order}) async {
-    final orderJson = OrderModel.fromEntity(order).toJson();
+  Future<String> createPayment({
+    required String orderId,
+  }) async {
+    try {
+      final response = await _supabase.functions.invoke(
+        'create-paymob-payment',
+        body: {
+          'orderId': orderId,
+        },
+      );
 
-    final response = await _supabase.functions.invoke(
-      'create-paymob-payment',
-      body: {
-        "amount": (order.cartItemList.calculateTotalPrice() + 30).round(),
-        "currency": "EGP",
+      final data = response.data;
 
-        "firstName": order.shippingEntity.name,
-        "lastName": ".",
-        "email": order.shippingEntity.email,
-        "phone": order.shippingEntity.phone,
+      if (data == null) {
+        throw CustomException(
+          'No response from server',
+        );
+      }
 
-        // هيترسل مع الـ Payment Key
-        "order": orderJson,
-      },
-    );
+      if (data is! Map) {
+        throw CustomException(
+          'Invalid response from server',
+        );
+      }
 
-    final data = response.data;
+      if (data['success'] != true) {
+        throw CustomException(
+          data['message']?.toString() ??
+              'Payment creation failed',
+        );
+      }
 
-    if (data == null) {
-      throw CustomException('No response from server');
+      final paymentUrl = data['paymentUrl'];
+
+      if (paymentUrl == null ||
+          paymentUrl.toString().isEmpty) {
+        throw CustomException(
+          'Payment URL was not returned',
+        );
+      }
+
+      return paymentUrl.toString();
+    } on FunctionException catch (e) {
+      throw CustomException(
+        e.reasonPhrase ?? 'Payment service error',
+      );
+    } on CustomException {
+      rethrow;
+    } catch (e) {
+      throw CustomException(
+        e.toString(),
+      );
     }
-
-    if (data['success'] != true) {
-      throw CustomException(data['message'] ?? 'Something went wrong');
-    }
-
-    return data['paymentKey'] as String;
   }
 }

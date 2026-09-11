@@ -1,4 +1,4 @@
 class BackendEndpoints {
   static const String path = 'users';
-  static const String oredersPath = 'orders';
+  static const String ordersPath = 'orders';
 }
