@@ -19,10 +19,12 @@ export async function createPaymobPayment(orderId) {
     if (!order) {
         throw new Error("Order data not found");
     }
-    if (order.payment?.paymentMethod !== "card") {
+    console.log("DEBUG ORDER ID:", orderId);
+    console.log("DEBUG FULL ORDER:", JSON.stringify(order, null, 2));
+    if (order.paymentMethod !== "card") {
         throw new Error("This order is not configured for card payment");
     }
-    if (order.payment?.paymentStatus === "paid") {
+    if (order.paymentStatus === "paid") {
         throw new Error("Order is already paid");
     }
     const totalPrice = Number(order.totalPrice);
