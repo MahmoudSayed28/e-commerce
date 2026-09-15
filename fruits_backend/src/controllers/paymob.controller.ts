@@ -48,18 +48,28 @@ export async function paymobWebhook(
   req: Request,
   res: Response,
 ) {
+  console.log("🔥 PAYMOB WEBHOOK RECEIVED");
+
   try {
+    console.log("🔥 STEP 1");
+
     const {
       obj,
       hmac,
     } = req.body;
 
+    console.log("🔥 STEP 2");
+
     if (!obj || typeof hmac !== "string") {
+      console.log("🔥 INVALID PAYLOAD");
+
       return res.status(400).json({
         success: false,
         message: "Invalid webhook payload",
       });
     }
+
+    console.log("🔥 STEP 3");
 
     const secret =
       process.env.PAYMOB_HMAC_SECRET;
@@ -69,6 +79,8 @@ export async function paymobWebhook(
         "PAYMOB_HMAC_SECRET is missing",
       );
     }
+
+    console.log("🔥 STEP 4 - HMAC SECRET EXISTS");
 
     const hmacString = [
       obj.amount_cents,
@@ -93,30 +105,47 @@ export async function paymobWebhook(
       obj.success,
     ].join("");
 
+    console.log("🔥 STEP 5 - HMAC STRING CREATED");
+
     const calculatedHmac = crypto
       .createHmac("sha512", secret)
       .update(hmacString)
       .digest("hex");
 
+    console.log("🔥 STEP 6 - HMAC CALCULATED");
+
     if (
       calculatedHmac.toLowerCase() !==
       hmac.toLowerCase()
     ) {
+      console.log("🔥 INVALID HMAC");
+
       return res.status(401).json({
         success: false,
         message: "Invalid HMAC",
       });
     }
 
+    console.log("🔥 HMAC VALID");
+
     const paymobOrderId =
       String(obj.order?.id ?? "");
 
+    console.log(
+      "🔥 PAYMOB ORDER ID:",
+      paymobOrderId,
+    );
+
     if (!paymobOrderId) {
+      console.log("🔥 PAYMOB ORDER ID MISSING");
+
       return res.status(400).json({
         success: false,
         message: "Paymob order ID is missing",
       });
     }
+
+    console.log("🔥 STEP 7 - SEARCHING FIRESTORE");
 
     const ordersSnapshot = await db
       .collection("orders")
@@ -127,6 +156,11 @@ export async function paymobWebhook(
       )
       .limit(1)
       .get();
+
+    console.log(
+      "🔥 ORDER QUERY EMPTY:",
+      ordersSnapshot.empty,
+    );
 
     if (ordersSnapshot.empty) {
       return res.status(404).json({
@@ -145,14 +179,19 @@ export async function paymobWebhook(
       });
     }
 
+    console.log(
+      "🔥 ORDER FOUND:",
+      orderDoc.id,
+    );
+
     const orderData = orderDoc.data();
 
-    // Idempotency:
-    // Don't process the same successful payment twice.
     if (
       orderData.payment?.paymentStatus ===
       "paid"
     ) {
+      console.log("🔥 PAYMENT ALREADY PROCESSED");
+
       return res.status(200).json({
         success: true,
         message: "Payment already processed",
@@ -163,7 +202,14 @@ export async function paymobWebhook(
       obj.success === true ||
       obj.success === "true";
 
+    console.log(
+      "🔥 PAYMENT SUCCESS:",
+      isSuccessful,
+    );
+
     if (isSuccessful) {
+      console.log("🔥 UPDATING ORDER AS PAID");
+
       await orderDoc.ref.update({
         "payment.paymentStatus": "paid",
         orderStatus: "paid",
@@ -172,13 +218,19 @@ export async function paymobWebhook(
         "payment.paidAt":
           new Date().toISOString(),
       });
+
+      console.log("🔥 ORDER UPDATED SUCCESSFULLY");
     } else {
+      console.log("🔥 UPDATING ORDER AS FAILED");
+
       await orderDoc.ref.update({
         "payment.paymentStatus": "failed",
         orderStatus: "payment_failed",
         "payment.paymobTransactionId":
           String(obj.id),
       });
+
+      console.log("🔥 ORDER UPDATED AS FAILED");
     }
 
     return res.status(200).json({
@@ -187,7 +239,7 @@ export async function paymobWebhook(
     });
   } catch (error) {
     console.error(
-      "PAYMOB WEBHOOK ERROR:",
+      "🔥 PAYMOB WEBHOOK ERROR:",
       error,
     );
 
@@ -200,12 +252,10 @@ export async function paymobWebhook(
     });
   }
 }
-
 export async function paymobResponse(
   req: Request,
   res: Response,
 ) {
-    console.log("🔥 PAYMOB WEBHOOK RECEIVED");
 
   const success =
     req.query.success === "true";
