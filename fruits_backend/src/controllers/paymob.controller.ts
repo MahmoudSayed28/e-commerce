@@ -1,4 +1,3 @@
-
 import type { Request, Response } from "express";
 import crypto from "node:crypto";
 
@@ -202,3 +201,16 @@ export async function paymobWebhook(
   }
 }
 
+export async function paymobResponse(
+  req: Request,
+  res: Response,
+) {
+  const success =
+    req.query.success === "true";
+
+  return res.status(200).send(
+    success
+      ? "Payment successful"
+      : "Payment failed",
+  );
+}
