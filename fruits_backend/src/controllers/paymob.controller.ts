@@ -44,6 +44,7 @@ export async function createPayment(
   }
 }
 
+
 export async function paymobWebhook(
   req: Request,
   res: Response,
@@ -51,40 +52,38 @@ export async function paymobWebhook(
   console.log("🔥 PAYMOB WEBHOOK RECEIVED");
 
   try {
-    console.log("🔥 STEP 1");
-
-    const {
-      obj,
-      hmac,
-    } = req.body;
-
-    console.log(
-      "🔥 BODY TYPE:",
-      typeof req.body,
-    );
+    console.log("🔥 BODY TYPE:", typeof req.body);
 
     console.log(
       "🔥 BODY KEYS:",
       req.body &&
-              typeof req.body === "object"
-          ? Object.keys(req.body)
-          : "NOT_OBJECT",
+          typeof req.body === "object"
+        ? Object.keys(req.body)
+        : "NOT_OBJECT",
+    );
+
+    const { obj } = req.body;
+
+    console.log("🔥 HAS OBJ:", !!obj);
+
+    console.log(
+      "🔥 OBJ KEYS:",
+      obj && typeof obj === "object"
+        ? Object.keys(obj)
+        : "NO_OBJ",
     );
 
     console.log(
-      "🔥 HAS OBJ:",
-      !!obj,
+      "🔥 CALLBACK TYPE:",
+      req.body?.type,
     );
 
-    console.log(
-      "🔥 HAS HMAC:",
-      typeof hmac === "string",
-    );
-
-    console.log("🔥 STEP 2");
-
-    if (!obj || typeof hmac !== "string") {
-      console.log("🔥 INVALID PAYLOAD");
+    if (
+      !obj 
+    ) {
+      console.log(
+        "🔥 INVALID PAYLOAD - OBJ MISSING",
+      );
 
       return res.status(400).json({
         success: false,
@@ -92,73 +91,7 @@ export async function paymobWebhook(
       });
     }
 
-    console.log("🔥 STEP 3");
-
-    const secret =
-      process.env.PAYMOB_HMAC_SECRET;
-
-    if (!secret) {
-      throw new Error(
-        "PAYMOB_HMAC_SECRET is missing",
-      );
-    }
-
-    console.log(
-      "🔥 STEP 4 - HMAC SECRET EXISTS",
-    );
-
-    const hmacString = [
-      obj.amount_cents,
-      obj.created_at,
-      obj.currency,
-      obj.error_occured,
-      obj.has_parent_transaction,
-      obj.id,
-      obj.integration_id,
-      obj.is_3d_secure,
-      obj.is_auth,
-      obj.is_capture,
-      obj.is_refunded,
-      obj.is_standalone_payment,
-      obj.is_voided,
-      obj.order?.id,
-      obj.owner,
-      obj.pending,
-      obj.source_data?.pan,
-      obj.source_data?.sub_type,
-      obj.source_data?.type,
-      obj.success,
-    ].join("");
-
-    console.log(
-      "🔥 STEP 5 - HMAC STRING CREATED",
-    );
-
-    const calculatedHmac = crypto
-      .createHmac(
-        "sha512",
-        secret,
-      )
-      .update(hmacString)
-      .digest("hex");
-
-    console.log(
-      "🔥 STEP 6 - HMAC CALCULATED",
-    );
-
-    if (
-      calculatedHmac.toLowerCase() !==
-      hmac.toLowerCase()
-    ) {
-      console.log("🔥 INVALID HMAC");
-
-      return res.status(401).json({
-        success: false,
-        message: "Invalid HMAC",
-      });
-    }
-
-    console.log("🔥 HMAC VALID");
+    console.log("🔥 OBJ RECEIVED");
 
     const paymobOrderId =
       String(obj.order?.id ?? "");
@@ -175,114 +108,30 @@ export async function paymobWebhook(
 
       return res.status(400).json({
         success: false,
-        message: "Paymob order ID is missing",
+        message:
+          "Paymob order ID is missing",
       });
     }
 
     console.log(
-      "🔥 STEP 7 - SEARCHING FIRESTORE",
+      "🔥 TRANSACTION ID:",
+      String(obj.id ?? ""),
     );
-
-    const ordersSnapshot = await db
-      .collection("orders")
-      .where(
-        "payment.paymobOrderId",
-        "==",
-        paymobOrderId,
-      )
-      .limit(1)
-      .get();
-
-    console.log(
-      "🔥 ORDER QUERY EMPTY:",
-      ordersSnapshot.empty,
-    );
-
-    if (ordersSnapshot.empty) {
-      return res.status(404).json({
-        success: false,
-        message: "Order not found",
-      });
-    }
-
-    const orderDoc =
-      ordersSnapshot.docs[0];
-
-    if (!orderDoc) {
-      return res.status(404).json({
-        success: false,
-        message: "Order not found",
-      });
-    }
-
-    console.log(
-      "🔥 ORDER FOUND:",
-      orderDoc.id,
-    );
-
-    const orderData =
-      orderDoc.data();
-
-    if (
-      orderData.payment?.paymentStatus ===
-      "paid"
-    ) {
-      console.log(
-        "🔥 PAYMENT ALREADY PROCESSED",
-      );
-
-      return res.status(200).json({
-        success: true,
-        message: "Payment already processed",
-      });
-    }
-
-    const isSuccessful =
-      obj.success === true ||
-      obj.success === "true";
 
     console.log(
       "🔥 PAYMENT SUCCESS:",
-      isSuccessful,
+      obj.success,
     );
 
-    if (isSuccessful) {
-      console.log(
-        "🔥 UPDATING ORDER AS PAID",
-      );
+ 
 
-      await orderDoc.ref.update({
-        "payment.paymentStatus": "paid",
-        orderStatus: "paid",
-        "payment.paymobTransactionId":
-          String(obj.id),
-        "payment.paidAt":
-          new Date().toISOString(),
-      });
-
-      console.log(
-        "🔥 ORDER UPDATED SUCCESSFULLY",
-      );
-    } else {
-      console.log(
-        "🔥 UPDATING ORDER AS FAILED",
-      );
-
-      await orderDoc.ref.update({
-        "payment.paymentStatus": "failed",
-        orderStatus: "payment_failed",
-        "payment.paymobTransactionId":
-          String(obj.id),
-      });
-
-      console.log(
-        "🔥 ORDER UPDATED AS FAILED",
-      );
-    }
+    console.log(
+      "🔥 WEBHOOK RECEIVED - WAITING FOR HMAC VERIFICATION",
+    );
 
     return res.status(200).json({
       success: true,
-      message: "Webhook processed",
+      message: "Webhook received",
     });
   } catch (error) {
     console.error(
@@ -299,6 +148,7 @@ export async function paymobWebhook(
     });
   }
 }
+
 export async function paymobResponse(
   req: Request,
   res: Response,
