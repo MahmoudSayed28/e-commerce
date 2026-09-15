@@ -8,7 +8,6 @@ import 'package:fruits_app/core/helper/custom_observer.dart';
 import 'package:fruits_app/core/helper/notification.dart';
 import 'package:fruits_app/core/helper/route_method.dart';
 import 'package:fruits_app/core/helper/service_locator.dart';
-import 'package:fruits_app/core/helper/supabase_helper.dart';
 import 'package:fruits_app/core/utils/theme_manager.dart';
 import 'package:fruits_app/firebase_options.dart';
 import 'package:fruits_app/main_layout.dart';
@@ -22,7 +21,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await SupabaseHelper.setUpSupabase();
+ // await SupabaseHelper.setUpSupabase();
 
   initServiceLocator();
   await CacheHelper.init();

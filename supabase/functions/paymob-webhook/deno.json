@@ -1,8 +1,0 @@
-{
-  "imports": {
-    "@supabase/functions-js": "jsr:@supabase/functions-js@^2",
-    "@supabase/server": "npm:@supabase/server@^1",
-    "firebase-admin/app": "npm:firebase-admin@13.4.0/app",
-    "firebase-admin/firestore": "npm:firebase-admin@13.4.0/firestore"
-  }
-}

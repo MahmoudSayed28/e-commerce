@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fruits_app/features/checkout/domain/repos/paymob_repo.dart';
 
 part 'payment_state.dart';

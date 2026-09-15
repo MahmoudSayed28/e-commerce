@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:fruits_app/core/errors/exceptions.dart';
+import 'package:fruits_app/core/utils/constant.dart';
 
 class PaymobService {
   final Dio _dio = Dio();
 
   static const String _baseUrl =
-      'https://e-commerce-production-fbf1.up.railway.app';
+      kRailwayUrl;
 
   Future<String> createPayment({
     required String orderId,

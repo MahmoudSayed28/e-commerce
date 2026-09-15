@@ -14,7 +14,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key});
 
@@ -70,9 +69,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
     return MultiBlocListener(
       listeners: [
-        // =========================================================
-        // CASH ORDER
-        // =========================================================
         BlocListener<AddOrderCubit, AddOrderState>(
           listener: (context, state) {
             if (state is AddOrderLoading) {
@@ -84,9 +80,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             if (state is AddOrderSuccess) {
               final orderId = state.orderId;
 
-              // ==============================
-              // CASH
-              // ==============================
               if (orderProvider.payWithCash == true) {
                 setState(() {
                   isLoading = false;
@@ -103,9 +96,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 return;
               }
 
-              // ==============================
-              // CARD
-              // ==============================
               log('STARTING PAYMOB PAYMENT');
               log('ORDER ID = $orderId');
 
@@ -119,16 +109,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
               showCustomSnackBar(context, message: state.errorMessage);
             }
-
-            // =====================================================
-            // CARD ORDER DRAFT CREATED
-            // =====================================================
           },
         ),
 
-        // =========================================================
-        // PAYMOB
-        // =========================================================
         BlocListener<PaymentCubit, PaymentState>(
           listener: (context, state) async {
             if (state is PaymentLoading) {
@@ -159,11 +142,13 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 mode: LaunchMode.externalApplication,
               );
 
-              if (!launched) {
-                showCustomSnackBar(
-                  context,
-                  message: 'Could not open payment page',
-                );
+              if (launched) {
+                if (context.mounted) {
+                  showCustomSnackBar(
+                    context,
+                    message: 'Could not open payment page',
+                  );
+                }
               }
 
               return;
@@ -187,9 +172,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           padding: const EdgeInsets.symmetric(horizontal: 15.5, vertical: 12),
           child: Column(
             children: [
-              // =====================================================
-              // STEPS
-              // =====================================================
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(steps.length, (index) {
@@ -229,9 +211,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 }),
               ),
 
-              // =====================================================
-              // PAGE VIEW
-              // =====================================================
               Expanded(
                 child: CheckoutPageView(
                   pageController: pageController,
@@ -240,9 +219,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 ),
               ),
 
-              // =====================================================
-              // MAIN BUTTON
-              // =====================================================
               CustomElevetedButton(
                 text:
                     currentIndex != 2
@@ -265,21 +241,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     return;
                   }
 
-                  // =================================================
-                  // STEP 2
-                  // =================================================
                   if (currentIndex == 1) {
                     _handleAdderssSection();
                     return;
                   }
 
-                  // =================================================
-                  // STEP 3
-                  // =================================================
                   if (currentIndex == 2) {
-                    // ===============================================
-                    // CASH
-                    // ===============================================
                     if (orderProvider.payWithCash == true) {
                       log('PAYMENT METHOD = CASH');
 
@@ -290,9 +257,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                       return;
                     }
 
-                    // ===============================================
-                    // CARD
-                    // ===============================================
                     log('PAYMENT METHOD = CARD');
 
                     context.read<AddOrderCubit>().createCardOrderDraft(
@@ -310,10 +274,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     );
   }
 
-  // ===============================================================
-  // STEP 1 - SHIPPING
-  // ===============================================================
-
   void _handleShippingSection(OrderEntity orderProvider, BuildContext context) {
     if (orderProvider.payWithCash != null) {
       pageController.nextPage(
@@ -324,10 +284,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       showCustomSnackBar(context, message: S.of(context).selectPaymentMethod);
     }
   }
-
-  // ===============================================================
-  // STEP 2 - ADDRESS
-  // ===============================================================
 
   void _handleAdderssSection() {
     if (formKey.currentState!.validate()) {
