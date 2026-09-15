@@ -205,6 +205,8 @@ export async function paymobResponse(
   req: Request,
   res: Response,
 ) {
+    console.log("🔥 PAYMOB WEBHOOK RECEIVED");
+
   const success =
     req.query.success === "true";
 

@@ -1,29 +1,26 @@
+import 'package:dio/dio.dart';
 import 'package:fruits_app/core/errors/exceptions.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymobService {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final Dio _dio = Dio();
+
+  static const String _baseUrl =
+      'https://e-commerce-production-fbf1.up.railway.app';
 
   Future<String> createPayment({
     required String orderId,
   }) async {
     try {
-      final response = await _supabase.functions.invoke(
-        'create-paymob-payment',
-        body: {
+      final response = await _dio.post(
+        '$_baseUrl/api/paymob/create-payment',
+        data: {
           'orderId': orderId,
         },
       );
 
       final data = response.data;
 
-      if (data == null) {
-        throw CustomException(
-          'No response from server',
-        );
-      }
-
-      if (data is! Map) {
+      if (data == null || data is! Map) {
         throw CustomException(
           'Invalid response from server',
         );
@@ -46,9 +43,16 @@ class PaymobService {
       }
 
       return paymentUrl.toString();
-    } on FunctionException catch (e) {
+    } on DioException catch (e) {
+      final message =
+          e.response?.data is Map
+              ? e.response?.data['message']?.toString()
+              : null;
+
       throw CustomException(
-        e.reasonPhrase ?? 'Payment service error',
+        message ??
+            e.message ??
+            'Payment service error',
       );
     } on CustomException {
       rethrow;
