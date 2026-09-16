@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 fruits-app-1071e-firebase-adminsdk-fbsvc-db7912b70a.json
+lib/core/utils/constant.dart
